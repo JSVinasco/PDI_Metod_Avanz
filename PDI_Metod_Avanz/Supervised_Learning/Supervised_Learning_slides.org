@@ -1,0 +1,81 @@
+#+title: Aprendizaje Supervisado
+#+SUBTITLE: Una introducción
+#+AUTHOR:  Juan Sebastian Vinasco Salinas
+
+#+EXPORT_FILE_NAME: export/supervised_intro_slides_igac.pdf
+
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [presentation,8pt, aspectratio=169, compress, xcolor=svgnames]
+#+BEAMER_THEME: Cesbio
+#+LATEX_HEADER: \setbeamertemplate{navigation symbols}{}
+#+LATEX_HEADER: \usepackage[english]{babel}
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+LATEX_HEADER: \usepackage{minted}
+#+LATEX_HEADER: \usepackage{tikz}
+#+LATEX_HEADER: \usemintedstyle{emacs}
+#+LATEX_HEADER: \usepackage{color}
+#+LATEX_HEADER: \usepackage{animate}
+#+LATEX_HEADER: \usepackage{subcaption}
+#+LATEX_HEADER: \newcommand{\shorttitle}{Bogotá - Colombia}
+#+LATEX_HEADER: \newcommand{\shortauthor}{Vinasco-Salinas}
+#+LATEX_HEADER: \institute{Instituto Geográfico Agustín Codazzi, Dirección de Investigación y Prospectiva,  Bogotá, COLOMBIA}
+#+LATEX_HEADER: %\usepackage[type={CC}, modifier={by-sa}, version={4.0},]{doclicense}
+#+LATEX_HEADER: \titlegraphic{\includegraphics[width=0.2\textwidth]{Artwork/logo-igac-colorhorizontal.png}}
+
+#+LATEX_HEADER: \usepackage[usenames,dvipsnames]{xcolor}
+#+LATEX_HEADER: \usepackage{tikz} \usetikzlibrary{calc, arrows.meta, intersections, patterns, positioning, shapes.misc, fadings, through,decorations.pathreplacing}
+#+LATEX_HEADER: \definecolor{ColorOne}{named}{MidnightBlue}
+#+LATEX_HEADER: \definecolor{ColorTwo}{named}{ForestGreen}
+#+LATEX_HEADER: \definecolor{ColorThree}{named}{Turquoise}
+
+#+LATEX_HEADER: \tikzstyle{descript} = [text = black,align=center, minimum height=1.8cm, align=center, outer sep=0pt,font = \footnotesize]
+#+LATEX_HEADER: \tikzstyle{activity} =[align=center,outer sep=1pt]
+
+#+STARTUP: hideblocks
+#+STARTUP: beamer
+
+#+BIBLIOGRAPHY: /home/juanse/Documents/Proyectos/IGAC_Diplomado/referencias/referecias_diplomado.bib
+#+CITE_EXPORT: biblatex backend=bibtex,style=ieee
+
+* Introducción al Aprendizaje Supervizado
+
+*** Introducción
+*** Concepto de discretización
+*** Categorización de Modelos de Aprendizaje Supervisado
+
+
+*** Funciones de Activación
+
+* Ejemplos de modelos clasicos
+
+*** Bosque Aleatorio
+*** Redes Neuronales Convolucionales
+*** Redes Recurrentes
+
+* Ejemplos avanzados
+*** LSTM
+*** Transformers en SSL
+
+* Ejercicio Practico
+
+*** Ejercicio Practico
+
+
+#+CAPTION: Vamos a practicar!!!
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.8\textwidth :placement {c}
+[[./Artwork/car_typing.jpeg]]
+
+* Referencias
+:PROPERTIES:
+:UNNUMBERED: 1
+:END:
+#+print_bibliography: :heading none
+
+#+begin_export latex
+\newpage
+#+end_export

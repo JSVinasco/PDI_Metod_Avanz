@@ -1,0 +1,108 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{none/global//global/global}
+  \entry{saah2004partitioning}{book}{}
+    \name{author}{1}{}{%
+      {{hash=SDS}{%
+         family={Saah},
+         familyi={S\bibinitperiod},
+         given={David\bibnamedelima Samaan},
+         giveni={D\bibinitperiod\bibinitdelim S\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {University of California, Berkeley}%
+    }
+    \strng{namehash}{SDS1}
+    \strng{fullhash}{SDS1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{title}{Partitioning of spatial heterogeneity in an object-oriented
+  riparian boundaries classification system for a South African savanna}
+    \field{year}{2004}
+  \endentry
+
+  \entry{zheng2021two}{article}{}
+    \name{author}{8}{}{%
+      {{hash=ZJ}{%
+         family={Zheng},
+         familyi={Z\bibinitperiod},
+         given={Juepeng},
+         giveni={J\bibinitperiod},
+      }}%
+      {{hash=WW}{%
+         family={Wu},
+         familyi={W\bibinitperiod},
+         given={Wenzhao},
+         giveni={W\bibinitperiod},
+      }}%
+      {{hash=YS}{%
+         family={Yuan},
+         familyi={Y\bibinitperiod},
+         given={Shuai},
+         giveni={S\bibinitperiod},
+      }}%
+      {{hash=ZY}{%
+         family={Zhao},
+         familyi={Z\bibinitperiod},
+         given={Yi},
+         giveni={Y\bibinitperiod},
+      }}%
+      {{hash=LW}{%
+         family={Li},
+         familyi={L\bibinitperiod},
+         given={Weijia},
+         giveni={W\bibinitperiod},
+      }}%
+      {{hash=ZL}{%
+         family={Zhang},
+         familyi={Z\bibinitperiod},
+         given={Lixian},
+         giveni={L\bibinitperiod},
+      }}%
+      {{hash=DR}{%
+         family={Dong},
+         familyi={D\bibinitperiod},
+         given={Runmin},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=FH}{%
+         family={Fu},
+         familyi={F\bibinitperiod},
+         given={Haohuan},
+         giveni={H\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{ZJWWYS+1}
+    \strng{fullhash}{ZJWWYSZYLWZLDRFH1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{pages}{1\bibrangedash 13}
+    \field{title}{A two-stage adaptation network (TSAN) for remote sensing
+  scene classification in single-source-mixed-multiple-target domain adaptation
+  (S$^2$M$^2$T DA) scenarios}
+    \field{volume}{60}
+    \field{journaltitle}{IEEE Transactions on Geoscience and Remote Sensing}
+    \field{year}{2021}
+  \endentry
+\enddatalist
+\endinput

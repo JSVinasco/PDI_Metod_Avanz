@@ -1,0 +1,277 @@
+#+TITLE: Introduction to Hyperspectral Processing
+#+AUTHOR: Juan Sebastian Vinasco Salinas
+#+EMAIL: juan.vinasco@igac.gov.co
+
+#+LANGUAGE: es
+#+LATEX_HEADER: \usepackage[AUTO]{babel}
+#+OPTIONS: toc:2
+#+TOC: listings
+#+TOC: tables
+
+#+BIBLIOGRAPHY: /home/juanse/Documents/Proyectos/IGAC_Diplomado/referencias/referecias_diplomado.bib
+#+EXPORT_FILE_NAME: /home/juanse/Documents/Proyectos/IGAC_Diplomado/PDI_Metod_Avanz/Hyperspectral_Processing_Intro/doc_export/Hyperspectral_Processing_Intro.pdf
+#+CITE_EXPORT: biblatex backend=bibtex,style=ieee
+
+#+LaTeX_CLASS_OPTIONS: [report]
+#+LATEX_CLASS_OPTIONS: [12pt]
+#+LATEX_HEADER: \usepackage{lmodern} % Ensures we have the right font
+#+LATEX_HEADER: \usepackage[AUTO]{inputenc}
+#+LATEX_HEADER: \usepackage{graphicx}
+#+LATEX_HEADER: \usepackage{amsmath, amsthm, amssymb}
+#+LATEX_HEADER: \usepackage[table, xcdraw]{xcolor}
+#+LATEX_HEADER: \usepackage{listings}
+#+LATEX_HEADER: \usepackage{times}
+#+LATEX_HEADER: \usepackage[margin=0.79in]{geometry}
+#+LATEX_HEADER: \usepackage{setspace}
+#+LATEX_HEADER: \spacing{1.5}
+# tags = spc-m-q
+
+#+LATEX_HEADER: \renewcommand\maketitle{\begin{titlepage}
+#+LATEX_HEADER: \thispagestyle{empty}
+#+LATEX_HEADER: \begin{center}
+#+LATEX_HEADER: \vspace*{1cm}
+#+LATEX_HEADER: \hrule
+#+LATEX_HEADER: \\[0.5cm]\Large\textsc{ Introducción a el procesamiento de Imágenes Hiperespectrales}\\[0.5cm]
+#+LATEX_HEADER: \\[0.5cm]\large\textsc{ Diplomado en métodos avanzados en procesamiento digital de imágenes }\\[0.5cm]
+#+LATEX_HEADER: \includegraphics[width=\textwidth]{./Artwork/calamar_julio_2025.png}
+#+LATEX_HEADER: \\*[0.5cm]
+#+LATEX_HEADER: \hrule
+#+LATEX_HEADER: \\*[0.5cm]
+#+LATEX_HEADER: \large\today
+#+LATEX_HEADER: \\*[1cm]
+#+LATEX_HEADER: Juan Sebastian Vinasco Salinas\\
+#+LATEX_HEADER: \\*[1cm]
+#+LATEX_HEADER: Dirección de Investigación y Prospectiva\\
+#+LATEX_HEADER: \vfilL
+#+LATEX_HEADER: \includegraphics[height=3cm]{./Artwork/logo-igac-colorhorizontal.png}\\*[1cm]
+#+LATEX_HEADER: \end{center}
+#+LATEX_HEADER: \end{titlepage}}
+
+#+begin_export latex
+\renewcommand{\listfigurename}{Lista de figuras}
+\listoffigures
+#+end_export
+
+
+#+begin_export latex
+\newpage
+#+end_export
+
+
+#+begin_export latex
+\newpage
+#+end_export
+
+
+
+* Teoría
+
+Conjuntos de datos hiperespectrales, como lo son los datos abiertos de Enmap o[fn:2]  el conjunto de datos de VANT de la ciudad de Toulouse [fn:1]
+
+Este material esta fuertemente inspirado en los materiales de ARSET [fn:3] y la capacitación del gobierno alemán sobre los datos de la misión Enmap [fn:4]
+
+
+** Recorderis del Espectro Electromagnético
+
+*** Definición
+*** Carterísitcas del espectro electromagnético
+
+
+** Resolución Espectral
+
+*** Defición
+*** Ejemplos
+
+
+#+CAPTION: Respuesta Espectral de las bandas del satelite  Venµs
+#+Name:   figmulti_vs_hiper
+[[./Artwork/reponses_Venµs.png]]
+
+
+
+
+
+** Pero, ¿Que es la teledetección hiperespectral?
+
+
+** Multi-Espectra versus Hiperespectral
+
+#+CAPTION: Multi-espectral versus Hiperespectral
+#+NAME:   figmulti_vs_hiper
+[[./Artwork/multiespectral_vs_hiperespectral.png]]
+
+
+
+** Aplicaciones de las imágenes hiperespectrales
+
+
+** Fuentes de datos hiperespectrales
+****
+
+
+
+
+** Procesamiento de datos hiperespectrales
+
+
+** Maldición de la dimensionalidad
+
+
+** Técnicas clasicas de procesamiento de imágenes espectrales
+
+
+** Ejercicio de desmezclado de pixeles
+
+*Este ejercicio ha sido tomado de la documentación de orfeo toolbox
+
+
+#+CAPTION: Teniendo en cuenta la imagen de cuprita, aquí se muestran las bandas 16, 100 y 180.
+#+Name:   fig:cuprita
+[[./Artwork/cuprite_rgb.png]]
+
+
+#+begin_src bash :exports code
+otbcli_EndmemberNumberEstimation  -in inputImage.tif
+                                  -algo vd
+                                  -algo.vd.far 1e-5
+
+otbcli_VertexComponentAnalysis  -in inputImage.tif
+                                -ne 19
+                                -outendm endmembers.tif
+#+end_src
+
+
+
+#+CAPTION: Imagen sin mezclar resultante, aquí se muestran las tres primeras bandas.
+#+Name:   fig:desmeclado
+[[./Artwork/hyperspectralUnmixing_rgb.png]]
+
+
+
+
+** Ejercicio clasificación basado en datos espectrales
+
+
+#+begin_src bash :exports code
+otbcli_SpectralAngleClassification -in inputImage.tif
+                                   -ie endmembers.tif
+                                   -out classification.tif
+                                   -mode sam
+#+end_src
+
+
+
+#+CAPTION: Resultado de una clasificación tipo SAM (Spectral Angle Mapper)
+#+Name:   fig:sam_clasif
+[[./Artwork/classification.png]]
+
+
+
+
+
+** Ejercicio de detección de anomalías
+
+#+CAPTION: Imagen hiperespectral de la Universidad de Pavía, aquí se muestran las bandas 50, 30 y 10.
+#+Name:   fig:pavia
+[[./Artwork/pavia.png]]
+
+
+
+
+
+#+begin_src bash :exports code
+otbcli_DimensionalityReduction  -in inputImage.tif
+                                -out reducedData.tif
+                                -method pca
+
+otbcli_LocalRxDetection  -in reducedData.tif
+                         -out RxScore.tif
+                         -ir 1
+                         -er
+
+otbcli_BandMath  -il RxScore.tif
+                 -out anomalyMap.tif
+                 -exp "im1b1>100"
+#+end_src
+
+
+#+CAPTION: Puntuación Rx calculada
+#+Name:   fig:rx_score
+[[./Artwork/rx_score.png]]
+
+
+
+#+CAPTION: Anomalías detectadas (en rojo)
+#+Name:   fig:rx_detection
+[[./Artwork/rx_detection.png]]
+
+
+
+
+
+
+** Técnicas de aprendizaje en las imagenes espectrales
+
+
+** Manos a la obra
+
+
+
+
+* Trabajo autonomo
+
+Realice los siguientes ejercicios:
+
+1. Realice el ejercicio de desmezclado de pixeles sobre las imágenes de muestra de los datos Enmap en la localización de su preferencia
+2. Realice el ejercicio de clasificación basado en datos espectrales sobre las imágenes de muestra de los datos Enmap en la localización de su preferencia
+3. Realice el ejercicio de detección de anomalías sobre las imágenes de muestra de los datos Enmap en la localización de su preferencia
+
+
+* Practica :noexport:
+
+La biblioteca libre de procesamiento digital de imágenes de satélite Orfeo Toolbox, nos permite hacer algunos procesamiento pensados para las imagenes de hiperespectrales, veamos un ejemplo de ello a continuación:
+
+
+#+begin_src bash :exports code
+otbcli_ReadImageInfo -in ENMAP01-____L2A-DT0000002446_20220810T112429Z_002_V010303_20230922T131813Z-SPECTRAL_IMAGE.TIF -progress 1 -rgb
+
+
+otbcli_EndmemberNumberEstimation  -in ENMAP01-____L2A-DT0000002446_20220810T112429Z_002_V010303_20230922T131813Z-SPECTRAL_IMAGE.TIF
+                                  -algo vd
+                                  -algo.vd.far 1e-5
+
+
+
+ENMAP01-____L2A-DT0000002446_20220810T112429Z_002_V0
+#+end_src
+
+
+#+begin_export latex
+\newpage
+#+end_export
+
+
+
+* Referencias
+:PROPERTIES:
+:UNNUMBERED: 1
+:END:
+
+
+
+#+print_bibliography: :heading none
+
+#+begin_export latex
+\newpage
+#+end_export
+
+* Footnotes
+:PROPERTIES:
+:UNNUMBERED: 1
+:END:
+[fn:4] [[https://eo-college.org/courses/beyond-the-visible-imaging-spectroscopy-for-agricultural-applications/][Beyond the Visible – Imaging Spectroscopy for Agricultural Applications – EO ...]]
+
+[fn:3]  [[https://appliedsciences.nasa.gov/sites/default/files/2021-02/Hyperspectral_Part1_Final.pdf]]
+[fn:2] [[https://www.enmap.org/data_tools/exampledata/][Example Data Products - EnMAP]]
+
+[fn:1] [[https://www.toulouse-hyperspectral-data-set.com/#download][Toulouse Hyperspectral Data Set]]

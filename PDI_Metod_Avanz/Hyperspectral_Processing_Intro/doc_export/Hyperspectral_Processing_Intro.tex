@@ -1,0 +1,244 @@
+% Created 2025-07-24 jue 22:27
+% Intended LaTeX compiler: pdflatex
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage[spanish]{babel}
+\usepackage{lmodern} % Ensures we have the right font
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage[table, xcdraw]{xcolor}
+\usepackage{listings}
+\usepackage{times}
+\usepackage[margin=0.79in]{geometry}
+\usepackage{setspace}
+\spacing{1.5}
+\renewcommand\maketitle{\begin{titlepage}
+\thispagestyle{empty}
+\begin{center}
+\vspace*{1cm}
+\hrule
+\\[0.5cm]\Large\textsc{ Introducción a el procesamiento de Imágenes Hiperespectrales}\\[0.5cm]
+\\[0.5cm]\large\textsc{ Diplomado en métodos avanzados en procesamiento digital de imágenes }\\[0.5cm]
+\includegraphics[width=\textwidth]{./Artwork/calamar_julio_2025.png}
+\\*[0.5cm]
+\hrule
+\\*[0.5cm]
+\large\today
+\\*[1cm]
+Juan Sebastian Vinasco Salinas\\
+\\*[1cm]
+Dirección de Investigación y Prospectiva\\
+\vfilL
+\includegraphics[height=3cm]{./Artwork/logo-igac-colorhorizontal.png}\\*[1cm]
+\end{center}
+\end{titlepage}}
+\author{Juan Sebastian Vinasco Salinas}
+\date{\today}
+\title{Introduction to Hyperspectral Processing}
+\hypersetup{
+ pdfauthor={Juan Sebastian Vinasco Salinas},
+ pdftitle={Introduction to Hyperspectral Processing},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 30.1 (Org mode 9.7.19)}, 
+ pdflang={Spanish}}
+\usepackage[backend=bibtex,style=ieee]{biblatex}
+\addbibresource{/home/juanse/Documents/Proyectos/IGAC_Diplomado/referencias/referecias_diplomado.bib}
+\begin{document}
+
+\maketitle
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+\lstlistoflistings
+\listoftables
+
+\renewcommand{\listfigurename}{Lista de figuras}
+\listoffigures
+
+
+\newpage
+
+
+\newpage
+\section{Teoría}
+\label{sec:org04d0c4b}
+
+Conjuntos de datos hiperespectrales, como lo son los datos abiertos de Enmap o\footnote{\href{https://www.enmap.org/data\_tools/exampledata/}{Example Data Products - EnMAP}}  el conjunto de datos de VANT de la ciudad de Toulouse \footnote{\href{https://www.toulouse-hyperspectral-data-set.com/\#download}{Toulouse Hyperspectral Data Set}}
+
+Este material esta fuertemente inspirado en los materiales de ARSET \footnote{\url{https://appliedsciences.nasa.gov/sites/default/files/2021-02/Hyperspectral\_Part1\_Final.pdf}} y la capacitación del gobierno alemán sobre los datos de la misión Enmap \footnote{\href{https://eo-college.org/courses/beyond-the-visible-imaging-spectroscopy-for-agricultural-applications/}{Beyond the Visible – Imaging Spectroscopy for Agricultural Applications – EO \ldots{}}}
+\subsection{Recorderis del Espectro Electromagnético}
+\label{sec:org70b1ceb}
+
+\subsubsection{Definición}
+\label{sec:org776000f}
+\subsubsection{Carterísitcas del espectro electromagnético}
+\label{sec:org5e7d236}
+\subsection{Resolución Espectral}
+\label{sec:org538d454}
+
+\subsubsection{Defición}
+\label{sec:org86c5840}
+\subsubsection{Ejemplos}
+\label{sec:orgb7302d2}
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.9\linewidth]{./Artwork/reponses_Venµs.png}
+\caption{\label{figmulti_vs_hiper}Respuesta Espectral de las bandas del satelite  Venµs}
+\end{figure}
+\subsection{Pero, ¿Que es la teledetección hiperespectral?}
+\label{sec:orga72cae7}
+
+
+\subsection{Multi-Espectra versus Hiperespectral}
+\label{sec:org891cc9c}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.9\linewidth]{./Artwork/multiespectral_vs_hiperespectral.png}
+\caption{\label{figmulti_vs_hiper}Multi-espectral versus Hiperespectral}
+\end{figure}
+\subsection{Aplicaciones de las imágenes hiperespectrales}
+\label{sec:org095395f}
+
+
+\subsection{Fuentes de datos hiperespectrales}
+\label{sec:org51d2d16}
+\textbf{**}
+\subsection{Procesamiento de datos hiperespectrales}
+\label{sec:org8a9fea0}
+
+
+\subsection{Maldición de la dimensionalidad}
+\label{sec:org5987d28}
+
+
+\subsection{Técnicas clasicas de procesamiento de imágenes espectrales}
+\label{sec:org6590a76}
+
+
+\subsection{Ejercicio de desmezclado de pixeles}
+\label{sec:org748d2fb}
+
+*Este ejercicio ha sido tomado de la documentación de orfeo toolbox
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.9\linewidth]{./Artwork/cuprite_rgb.png}
+\caption{\label{fig:cuprita}Teniendo en cuenta la imagen de cuprita, aquí se muestran las bandas 16, 100 y 180.}
+\end{figure}
+
+
+\begin{verbatim}
+otbcli_EndmemberNumberEstimation  -in inputImage.tif
+                                  -algo vd
+                                  -algo.vd.far 1e-5
+
+otbcli_VertexComponentAnalysis  -in inputImage.tif
+                                -ne 19
+                                -outendm endmembers.tif
+\end{verbatim}
+
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.9\linewidth]{./Artwork/hyperspectralUnmixing_rgb.png}
+\caption{\label{fig:desmeclado}Imagen sin mezclar resultante, aquí se muestran las tres primeras bandas.}
+\end{figure}
+\subsection{Ejercicio clasificación basado en datos espectrales}
+\label{sec:org2304e68}
+
+
+\begin{verbatim}
+otbcli_SpectralAngleClassification -in inputImage.tif
+                                   -ie endmembers.tif
+                                   -out classification.tif
+                                   -mode sam
+\end{verbatim}
+
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.9\linewidth]{./Artwork/classification.png}
+\caption{\label{fig:sam_clasif}Resultado de una clasificación tipo SAM (Spectral Angle Mapper)}
+\end{figure}
+\subsection{Ejercicio de detección de anomalías}
+\label{sec:orgc135c7c}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.9\linewidth]{./Artwork/pavia.png}
+\caption{\label{fig:pavia}Imagen hiperespectral de la Universidad de Pavía, aquí se muestran las bandas 50, 30 y 10.}
+\end{figure}
+
+
+
+
+
+\begin{verbatim}
+otbcli_DimensionalityReduction  -in inputImage.tif
+                                -out reducedData.tif
+                                -method pca
+
+otbcli_LocalRxDetection  -in reducedData.tif
+                         -out RxScore.tif
+                         -ir 1
+                         -er
+
+otbcli_BandMath  -il RxScore.tif
+                 -out anomalyMap.tif
+                 -exp "im1b1>100"
+\end{verbatim}
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.9\linewidth]{./Artwork/rx_score.png}
+\caption{\label{fig:rx_score}Puntuación Rx calculada}
+\end{figure}
+
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.9\linewidth]{./Artwork/rx_detection.png}
+\caption{\label{fig:rx_detection}Anomalías detectadas (en rojo)}
+\end{figure}
+\subsection{Técnicas de aprendizaje en las imagenes espectrales}
+\label{sec:orgaee8954}
+
+
+\subsection{Manos a la obra}
+\label{sec:org3f6606f}
+\section{Trabajo autonomo}
+\label{sec:orgc1311f2}
+
+Realice los siguientes ejercicios:
+
+\begin{enumerate}
+\item Realice el ejercicio de desmezclado de pixeles sobre las imágenes de muestra de los datos Enmap en la localización de su preferencia
+\item Realice el ejercicio de clasificación basado en datos espectrales sobre las imágenes de muestra de los datos Enmap en la localización de su preferencia
+\item Realice el ejercicio de detección de anomalías sobre las imágenes de muestra de los datos Enmap en la localización de su preferencia
+\end{enumerate}
+\section*{Referencias}
+\label{sec:orge7b5a50}
+\printbibliography[heading=none]
+
+\newpage
+\end{document}

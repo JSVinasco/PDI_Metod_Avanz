@@ -1,0 +1,240 @@
+#+TITLE: README
+#+AUTHOR: Juan Sebastian Vinasco Salinas
+#+EMAIL: juan.vinasco@igac.gov.co
+
+#+LANGUAGE: es
+#+LATEX_HEADER: \usepackage[AUTO]{babel}
+#+OPTIONS: toc:2
+#+TOC: listings
+#+TOC: tables
+
+#+BIBLIOGRAPHY: /home/juanse/Documents/Proyectos/IGAC_Diplomado/referencias/referecias_diplomado.bib
+#+EXPORT_FILE_NAME:  /home/juanse/Documents/Proyectos/IGAC_Diplomado/PDI_Metod_Avanz/Unsupervised_Learning/doc_export/Unsupervised_Learning.pdf
+#+CITE_EXPORT: biblatex backend=bibtex,style=ieee
+
+#+LaTeX_CLASS_OPTIONS: [report]
+#+LATEX_CLASS_OPTIONS: [12pt]
+#+LATEX_HEADER: \usepackage{lmodern} % Ensures we have the right font
+#+LATEX_HEADER: \usepackage[AUTO]{inputenc}
+#+LATEX_HEADER: \usepackage{graphicx}
+#+LATEX_HEADER: \usepackage{amsmath, amsthm, amssymb}
+#+LATEX_HEADER: \usepackage[table, xcdraw]{xcolor}
+#+LATEX_HEADER: \usepackage{listings}
+#+LATEX_HEADER: \usepackage{times}
+#+LATEX_HEADER: \usepackage[margin=0.79in]{geometry}
+#+LATEX_HEADER: \usepackage{setspace}
+#+LATEX_HEADER: \spacing{1.5}
+# tags = spc-m-q
+
+#+LATEX_HEADER: \renewcommand\maketitle{\begin{titlepage}
+#+LATEX_HEADER: \thispagestyle{empty}
+#+LATEX_HEADER: \begin{center}
+#+LATEX_HEADER: \vspace*{1cm}
+#+LATEX_HEADER: \hrule
+#+LATEX_HEADER: \\[0.5cm]\Large\textsc{ Introducción a los métodos no supervisados de aprendizaje}\\[0.5cm]
+#+LATEX_HEADER: \\[0.5cm]\large\textsc{ Diplomado en métodos avanzados en procesamiento digital de imágenes }\\[0.5cm]
+#+LATEX_HEADER: \includegraphics[width=\textwidth]{./Artwork/calamar_julio_2025.png}
+#+LATEX_HEADER: \\*[0.5cm]
+#+LATEX_HEADER: \hrule
+#+LATEX_HEADER: \\*[0.5cm]
+#+LATEX_HEADER: \large\today
+#+LATEX_HEADER: \\*[1cm]
+#+LATEX_HEADER: Juan Sebastian Vinasco Salinas\\
+#+LATEX_HEADER: \\*[1cm]
+#+LATEX_HEADER: Dirección de Investigación y Prospectiva\\
+#+LATEX_HEADER: \vfilL
+#+LATEX_HEADER: \includegraphics[height=3cm]{./Artwork/logo-igac-colorhorizontal.png}\\*[1cm]
+#+LATEX_HEADER: \end{center}
+#+LATEX_HEADER: \end{titlepage}}
+
+#+begin_export latex
+\renewcommand{\listfigurename}{Lista de figuras}
+\listoffigures
+#+end_export
+
+
+#+begin_export latex
+\newpage
+#+end_export
+
+
+
+* Introducción al Aprendizaje No Supervizado
+
+** Introducción
+
+Como vimos en la clase pasada, cuando disponemos de conjuntos de datos etiquetados, los modelos de /machine learning/ (ML en adelante) y de /deep learning/ (DL en adelante) tienen mucho que aportar. Sin embargo, en nuestro mundo digital moderno, la existencia de dichas etiquetas no puede darse por sentado, existen casos en donde podamos realizar un etiquetado manual, pero también existen otras opciones y estas son objeto del presente documento.
+
+** Categorización de Modelos de Aprendizaje No Supervisado
+
+Es necesario mencionar que en esta sesión solamente mencionaremos dos categorías de algoritmos no supervisados ([[agrup]] y [[reduc]]). Otras categorías que podríamos denominar híbridas (como lo son por ejemplo: Modelos de tipo Generativo (/Generative adversial Networks/, algunos algoritmos de optimización y control, como lo son los algoritmos genéticos, algoritmos de aprendizaje por refuerzo como lo son las cadenas de markov, o alternativas contemporáneas como aprendizaje semi-supervizado o aprendizaje débilmente supervisado)) serán dejadas por fuera.
+
+*** Agrupamiento (Clustering)
+<<agrup>>
+
+La primera sub-categoría clásica es la de los algoritmos de agrupamiento, esta clase de algoritmos, como su nombre lo indica, intentan construir categorías, en base a la similitud entre los puntos de un conjunto de datos dado.
+
+Este tipo de algoritmos son importantes, a la hora de explorar los conjuntos de datos a los que nos podemos ver enfrentados, y su exponente clásico más conocido es el de k-medias [[kmeans]]
+
+
+*** Reducción de la dimensionalidad
+<<reduc>>
+
+La segunda sub-categoría se refiere a los algoritmos de reducción de la dimensionalidad, una forma mas intuitiva de ver este tipo de algoritmos es como una especie de algoritmos de compresión y su principal interés es la de superar la llamada "/maldición de la dimensionalidad/"
+
+Ahora bien, ¿Qué es la llamada "/maldición de la dimensionalidad/"?
+
+Esta se refiere a que un sistema es teóricamente imposible de resolver, cuando el numero de características supera a el numero de muestras. En estos casos, aplicar un algoritmo de reducción de la dimensionalidad es especialmente útil, por que nos permite, con una perdida "mínima" de información, aplicar nuestros algoritmos clásicos de aprendizaje supervisado.
+
+Sin embargo, este no es el único caso en que los algoritmos de reducción de la dimensionalidad resultan utiles, a veces y cada vez mas comúnmente, este tipo de representaciones en un espacio dimensional mas bajo, resulta especialmente útiles para hacer el proceso de aprendizaje mejor.
+
+* Ejemplos de modelos clásicos de agrupamiento
+** K-medias
+<<kmeans>>
+
+#+CAPTION: Ejemplo del algoritmo k-medias en un conjunto de datos de digitos escritos a mano
+#+NAME:   fig:k-medias-img
+[[./Artwork/k-medias_sklearn_modificado.png]]
+
+La anterior imagen ha sido modificada del ejemplo [fn:2]
+
+* Ejemplos de modelos clásicos de reducción de la dimensionalidad
+
+** Análisis de Componentes Principales (PCA)
+
+#+CAPTION: Ejemplo del algoritmo PCA en un conjunto de datos de digitos Iris
+#+NAME:   fig:k-medias-img
+[[./Artwork/pca_iris.png]]
+
+La anterior imagen ha sido modificada del ejemplo [fn:3]
+
+
+** Tasseled Cap
+
+
+#+CAPTION: Ejemplo del algoritmo Tasseled Cap
+#+NAME:   fig:tasseled-1
+#+ATTR_LATEX: :height 7cm
+[[./Artwork/tasseled-cap_0.png]]
+
+La anterior imagen ha sido tomada del paper titulado  "/Partitioning of spatial heterogeneity in an object-oriented riparian boundaries classification system for a South African savanna/" [cite:@saah2004partitioning]
+
+#+CAPTION: Ejemplo del algoritmo Tasseled Cap
+#+NAME:   fig:tasseled-1
+#+ATTR_LATEX: :height 15cm
+[[./Artwork/tasseled-cap_n.png]]
+
+La anterior imagen ha sido tomada del siguiente blog[fn:4]
+
+
+
+
+
+** t-SNE
+
+#+CAPTION: Ejemplo del algoritmo t-SNE en una comparativa de modelos de DL
+#+NAME:   fig:t-sne-img
+[[./Artwork/t-SNE-visualization.png]]
+
+La anterior imagen ha sido tomada del paper titulado  "/A two-stage adaptation network (TSAN) for remote sensing scene classification in single-source-mixed-multiple-target domain adaptation (S$^2$M$^2$T DA) scenarios/"[cite:@zheng2021two]
+
+
+
+
+* Ejemplos avanzados
+** Auto-encoder
+
+#+CAPTION: Ejemplo de la arquitectura de un auto-encoder
+#+NAME:   fig:auto-enc
+#+ATTR_LATEX: :height 10cm
+[[./Artwork/autoencoder_clasico.png]]
+
+La anterior imagen ha sido tomada del siguiente blog[fn:5]
+
+
+
+
+** Auto-encoder variacional
+
+
+#+CAPTION: Ejemplo de la arquitectura de un auto-encoder variacional
+#+NAME:   fig:vae
+#+ATTR_LATEX: :height 10cm
+[[./Artwork/vae.png]]
+
+La anterior imagen ha sido tomada del siguiente blog[fn:6]
+
+
+
+
+* Ejercicio Practico
+
+Nuestro ejercicio practico seguira el tutorial de "Smart Land Use Reconstruction Pipeline"[fn:1]
+
+La estrategía de esta cadena de procesamiento, es realizar varias clasificaciones no supervisadas sobre una imagen de muy alta resolución, para derivar unas clases comunes
+
+Conjunto de datos:
+
++
+
+
+Install
+
+#+begin_src python :exports code
+
+TODO
+#+end_src
+
+** Ejecución
+
+
+1. Generate the water mask
+#+begin_src python :exports code
+slurp_watermask prepare/effective_used_config.json
+#+end_src
+
+2. Generate the vegetation mask
+#+begin_src python :exports code
+slurp_vegetationmask prepare/effective_used_config.json
+#+end_src
+
+3. Generate the shadow mask
+#+begin_src python :exports code
+slurp_shadowmask prepare/effective_used_config.json
+#+end_src
+
+4. Generate the urban mask
+#+begin_src python :exports code
+slurp_urbanmask prepare/effective_used_config.json
+#+end_src
+
+5. Stack the masks
+#+begin_src python :exports code
+slurp_stackmasks prepare/effective_used_config.json
+#+end_src
+
+* Referencias
+:PROPERTIES:
+:UNNUMBERED: 1
+:END:
+
+#+print_bibliography: :heading none
+
+#+begin_export latex
+\newpage
+#+end_export
+
+* Footnotes
+[fn:6] https://theaisummer.com/Autoencoder/
+
+[fn:5] https://www.geeksforgeeks.org/numpy/types-of-autoencoders/
+[fn:4]  https://pro.arcgis.com/es/pro-app/latest/help/analysis/raster-functions/tasseled-cap-function.htm
+
+[fn:3] https://scikit-learn.org/stable/auto_examples/decomposition/plot_pca_vs_lda.html#sphx-glr-auto-examples-decomposition-plot-pca-vs-lda-py
+[fn:2] https://scikit-learn.org/stable/auto_examples/cluster/plot_kmeans_digits.html
+
+[fn:1] https://github.com/CNES/slurp
+
+# Local Variables:
+# jinx-languages: "es_CO"
+# End:

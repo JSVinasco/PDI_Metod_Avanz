@@ -1,0 +1,242 @@
+% Created 2025-07-31 jue 12:13
+% Intended LaTeX compiler: pdflatex
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage[spanish]{babel}
+\usepackage{lmodern} % Ensures we have the right font
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage[table, xcdraw]{xcolor}
+\usepackage{listings}
+\usepackage{times}
+\usepackage[margin=0.79in]{geometry}
+\usepackage{setspace}
+\spacing{1.5}
+\renewcommand\maketitle{\begin{titlepage}
+\thispagestyle{empty}
+\begin{center}
+\vspace*{1cm}
+\hrule
+\\[0.5cm]\Large\textsc{ Introducción a los métodos no supervisados de aprendizaje}\\[0.5cm]
+\\[0.5cm]\large\textsc{ Diplomado en métodos avanzados en procesamiento digital de imágenes }\\[0.5cm]
+\includegraphics[width=\textwidth]{./Artwork/calamar_julio_2025.png}
+\\*[0.5cm]
+\hrule
+\\*[0.5cm]
+\large\today
+\\*[1cm]
+Juan Sebastian Vinasco Salinas\\
+\\*[1cm]
+Dirección de Investigación y Prospectiva\\
+\vfilL
+\includegraphics[height=3cm]{./Artwork/logo-igac-colorhorizontal.png}\\*[1cm]
+\end{center}
+\end{titlepage}}
+\author{Juan Sebastian Vinasco Salinas}
+\date{\today}
+\title{README}
+\hypersetup{
+ pdfauthor={Juan Sebastian Vinasco Salinas},
+ pdftitle={README},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 30.1 (Org mode 9.7.19)}, 
+ pdflang={Spanish}}
+\usepackage[backend=bibtex,style=ieee]{biblatex}
+\addbibresource{/home/juanse/Documents/Proyectos/IGAC_Diplomado/referencias/referecias_diplomado.bib}
+\begin{document}
+
+\maketitle
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+\lstlistoflistings
+\listoftables
+
+\renewcommand{\listfigurename}{Lista de figuras}
+\listoffigures
+
+
+\newpage
+\section{Introducción al Aprendizaje No Supervizado}
+\label{sec:orgb67e7fd}
+
+\subsection{Introducción}
+\label{sec:org0ef2996}
+
+Como vimos en la clase pasada, cuando disponemos de conjuntos de datos etiquetados, los modelos de \emph{machine learning} (ML en adelante) y de \emph{deep learning} (DL en adelante) tienen mucho que aportar. Sin embargo, en nuestro mundo digital moderno, la existencia de dichas etiquetas no puede darse por sentado, existen casos en donde podamos realizar un etiquetado manual, pero también existen otras opciones y estas son objeto del presente documento.
+\subsection{Categorización de Modelos de Aprendizaje No Supervisado}
+\label{sec:orga4b1f2b}
+
+Es necesario mencionar que en esta sesión solamente mencionaremos dos categorías de algoritmos no supervisados (\ref{agrup} y \ref{reduc}). Otras categorías que podríamos denominar híbridas (como lo son por ejemplo: Modelos de tipo Generativo (\emph{Generative adversial Networks}, algunos algoritmos de optimización y control, como lo son los algoritmos genéticos, algoritmos de aprendizaje por refuerzo como lo son las cadenas de markov, o alternativas contemporáneas como aprendizaje semi-supervizado o aprendizaje débilmente supervisado)) serán dejadas por fuera.
+\subsubsection{Agrupamiento (Clustering)}
+\label{sec:orgd096350}
+\label{agrup}
+
+La primera sub-categoría clásica es la de los algoritmos de agrupamiento, esta clase de algoritmos, como su nombre lo indica, intentan construir categorías, en base a la similitud entre los puntos de un conjunto de datos dado.
+
+Este tipo de algoritmos son importantes, a la hora de explorar los conjuntos de datos a los que nos podemos ver enfrentados, y su exponente clásico más conocido es el de k-medias \ref{kmeans}
+\subsubsection{Reducción de la dimensionalidad}
+\label{sec:org6ee1546}
+\label{reduc}
+
+La segunda sub-categoría se refiere a los algoritmos de reducción de la dimensionalidad, una forma mas intuitiva de ver este tipo de algoritmos es como una especie de algoritmos de compresión y su principal interés es la de superar la llamada \guillemotleft{}\emph{maldición de la dimensionalidad}\guillemotright{}
+
+Ahora bien, ¿Qué es la llamada \guillemotleft{}\emph{maldición de la dimensionalidad}\guillemotright{}?
+
+Esta se refiere a que un sistema es teóricamente imposible de resolver, cuando el numero de características supera a el numero de muestras. En estos casos, aplicar un algoritmo de reducción de la dimensionalidad es especialmente útil, por que nos permite, con una perdida \guillemotleft{}mínima\guillemotright{} de información, aplicar nuestros algoritmos clásicos de aprendizaje supervisado.
+
+Sin embargo, este no es el único caso en que los algoritmos de reducción de la dimensionalidad resultan utiles, a veces y cada vez mas comúnmente, este tipo de representaciones en un espacio dimensional mas bajo, resulta especialmente útiles para hacer el proceso de aprendizaje mejor.
+\section{Ejemplos de modelos clásicos de agrupamiento}
+\label{sec:org41989e3}
+\subsection{K-medias}
+\label{sec:orgce44424}
+\label{kmeans}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.9\linewidth]{./Artwork/k-medias_sklearn_modificado.png}
+\caption{\label{fig:k-medias-img}Ejemplo del algoritmo k-medias en un conjunto de datos de digitos escritos a mano}
+\end{figure}
+
+La anterior imagen ha sido modificada del ejemplo \footnote{\url{https://scikit-learn.org/stable/auto\_examples/cluster/plot\_kmeans\_digits.html}}
+\section{Ejemplos de modelos clásicos de reducción de la dimensionalidad}
+\label{sec:org2f7056f}
+
+\subsection{Análisis de Componentes Principales (PCA)}
+\label{sec:orge343f6a}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.9\linewidth]{./Artwork/pca_iris.png}
+\caption{\label{fig:k-medias-img}Ejemplo del algoritmo PCA en un conjunto de datos de digitos Iris}
+\end{figure}
+
+La anterior imagen ha sido modificada del ejemplo \footnote{\url{https://scikit-learn.org/stable/auto\_examples/decomposition/plot\_pca\_vs\_lda.html\#sphx-glr-auto-examples-decomposition-plot-pca-vs-lda-py}}
+\subsection{Tasseled Cap}
+\label{sec:org2ecedce}
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[height=7cm]{./Artwork/tasseled-cap_0.png}
+\caption{\label{fig:tasseled-1}Ejemplo del algoritmo Tasseled Cap}
+\end{figure}
+
+La anterior imagen ha sido tomada del paper titulado  \guillemotleft{}\emph{Partitioning of spatial heterogeneity in an object-oriented riparian boundaries classification system for a South African savanna}\guillemotright{} \autocite{saah2004partitioning}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[height=15cm]{./Artwork/tasseled-cap_n.png}
+\caption{\label{fig:tasseled-1}Ejemplo del algoritmo Tasseled Cap}
+\end{figure}
+
+La anterior imagen ha sido tomada del siguiente blog\footnote{\url{https://pro.arcgis.com/es/pro-app/latest/help/analysis/raster-functions/tasseled-cap-function.htm}}
+\subsection{t-SNE}
+\label{sec:orgf3db31a}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=.9\linewidth]{./Artwork/t-SNE-visualization.png}
+\caption{\label{fig:t-sne-img}Ejemplo del algoritmo t-SNE en una comparativa de modelos de DL}
+\end{figure}
+
+La anterior imagen ha sido tomada del paper titulado  \guillemotleft{}\emph{A two-stage adaptation network (TSAN) for remote sensing scene classification in single-source-mixed-multiple-target domain adaptation (S\$\textsuperscript{2}\(M\)\textsuperscript{2}\$T DA) scenarios}\guillemotright{} \autocite{zheng2021two}
+\section{Ejemplos avanzados}
+\label{sec:orga4de68d}
+\subsection{Auto-encoder}
+\label{sec:org786e814}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[height=10cm]{./Artwork/autoencoder_clasico.png}
+\caption{\label{fig:auto-enc}Ejemplo de la arquitectura de un auto-encoder}
+\end{figure}
+
+La anterior imagen ha sido tomada del siguiente blog\footnote{\url{https://www.geeksforgeeks.org/numpy/types-of-autoencoders/}}
+\subsection{Auto-encoder variacional}
+\label{sec:orgbd1014c}
+
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[height=10cm]{./Artwork/vae.png}
+\caption{\label{fig:vae}Ejemplo de la arquitectura de un auto-encoder variacional}
+\end{figure}
+
+La anterior imagen ha sido tomada del siguiente blog\footnote{\url{https://theaisummer.com/Autoencoder/}}
+\section{Ejercicio Practico}
+\label{sec:org81c405c}
+
+Nuestro ejercicio practico seguira el tutorial de \guillemotleft{}Smart Land Use Reconstruction Pipeline\guillemotright{}\footnote{\url{https://github.com/CNES/slurp}}
+
+La estrategía de esta cadena de procesamiento, es realizar varias clasificaciones no supervisadas sobre una imagen de muy alta resolución, para derivar unas clases comunes
+
+Conjunto de datos:
+
+\begin{itemize}
+\item 
+\end{itemize}
+
+
+Install
+
+\begin{verbatim}
+
+TODO
+\end{verbatim}
+\subsection{Ejecución}
+\label{sec:orgd7b5a79}
+
+
+\begin{enumerate}
+\item Generate the water mask
+\end{enumerate}
+\begin{verbatim}
+slurp_watermask prepare/effective_used_config.json
+\end{verbatim}
+
+\begin{enumerate}
+\item Generate the vegetation mask
+\end{enumerate}
+\begin{verbatim}
+slurp_vegetationmask prepare/effective_used_config.json
+\end{verbatim}
+
+\begin{enumerate}
+\item Generate the shadow mask
+\end{enumerate}
+\begin{verbatim}
+slurp_shadowmask prepare/effective_used_config.json
+\end{verbatim}
+
+\begin{enumerate}
+\item Generate the urban mask
+\end{enumerate}
+\begin{verbatim}
+slurp_urbanmask prepare/effective_used_config.json
+\end{verbatim}
+
+\begin{enumerate}
+\item Stack the masks
+\end{enumerate}
+\begin{verbatim}
+slurp_stackmasks prepare/effective_used_config.json
+\end{verbatim}
+\section*{Referencias}
+\label{sec:orgd11db01}
+\printbibliography[heading=none]
+
+\newpage
+\end{document}

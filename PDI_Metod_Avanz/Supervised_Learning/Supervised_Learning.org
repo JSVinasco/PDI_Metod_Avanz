@@ -1,0 +1,236 @@
+#+TITLE: Supervised Learning
+#+AUTHOR: Juan Sebastian Vinasco Salinas
+#+EMAIL: juan.vinasco@igac.gov.co
+
+#+LANGUAGE: es
+#+LATEX_HEADER: \usepackage[AUTO]{babel}
+#+OPTIONS: toc:2
+#+TOC: listings
+#+TOC: tables
+
+#+BIBLIOGRAPHY: /home/juanse/Documents/Proyectos/IGAC_Diplomado/referencias/referecias_diplomado.bib
+#+EXPORT_FILE_NAME: /home/juanse/Documents/Proyectos/IGAC_Diplomado/PDI_Metod_Avanz/Supervised_Learning/doc_export/Supervised_Learning.pdf
+#+CITE_EXPORT: biblatex backend=bibtex,style=ieee
+
+#+LaTeX_CLASS_OPTIONS: [report]
+#+LATEX_CLASS_OPTIONS: [12pt]
+#+LATEX_HEADER: \usepackage{lmodern} % Ensures we have the right font
+#+LATEX_HEADER: \usepackage[AUTO]{inputenc}
+#+LATEX_HEADER: \usepackage{graphicx}
+#+LATEX_HEADER: \usepackage{amsmath, amsthm, amssymb}
+#+LATEX_HEADER: \usepackage[table, xcdraw]{xcolor}
+#+LATEX_HEADER: \usepackage{listings}
+#+LATEX_HEADER: \usepackage{times}
+#+LATEX_HEADER: \usepackage[margin=0.79in]{geometry}
+#+LATEX_HEADER: \usepackage{setspace}
+#+LATEX_HEADER: \spacing{1.5}
+# tags = spc-m-q
+
+#+LATEX_HEADER: \renewcommand\maketitle{\begin{titlepage}
+#+LATEX_HEADER: \thispagestyle{empty}
+#+LATEX_HEADER: \begin{center}
+#+LATEX_HEADER: \vspace*{1cm}
+#+LATEX_HEADER: \hrule
+#+LATEX_HEADER: \\[0.5cm]\Large\textsc{ Introducción a al aprendizaje supervisado y arquitecturas}\\[0.5cm]
+#+LATEX_HEADER: \\[0.5cm]\large\textsc{ Diplomado en métodos avanzados en procesamiento digital de imágenes }\\[0.5cm]
+#+LATEX_HEADER: \includegraphics[width=\textwidth]{./Artwork/calamar_julio_2025.png}
+#+LATEX_HEADER: \\*[0.5cm]
+#+LATEX_HEADER: \hrule
+#+LATEX_HEADER: \\*[0.5cm]
+#+LATEX_HEADER: \large\today
+#+LATEX_HEADER: \\*[1cm]
+#+LATEX_HEADER: Juan Sebastian Vinasco Salinas\\
+#+LATEX_HEADER: \\*[1cm]
+#+LATEX_HEADER: Dirección de Investigación y Prospectiva\\
+#+LATEX_HEADER: \vfilL
+#+LATEX_HEADER: \includegraphics[height=3cm]{./Artwork/logo-igac-colorhorizontal.png}\\*[1cm]
+#+LATEX_HEADER: \end{center}
+#+LATEX_HEADER: \end{titlepage}}
+
+#+begin_export latex
+\renewcommand{\listfigurename}{Lista de figuras}
+\listoffigures
+#+end_export
+
+
+#+begin_export latex
+\newpage
+#+end_export
+
+
+
+* Introducción al Aprendizaje Supervisado
+
+** Introducción
+
+El aprendizaje supervisado es
+
+** Concepto de discretización
+** Categorización de Modelos de Aprendizaje Supervisado
+
+*** Regresión
+
+El objetivo es encontrar un valor continuo
+
+*** Clasificación
+
+El objetivo es encontrar un valor categorico
+
+** Funciones de activación
+
+*** ¿Que es una función de activación?
+*** Función Sigmoide
+
+Función Sigmoide
+#+begin_export latex
+\sigma(x) = \frac{1}{1 + e^{-x}}
+#+end_export
+
+*** Función Tanjente hiperbolica
+
+#+begin_export latex
+\tanh(x) = \frac{e^{x} - e^{-x}}{e^{x} + e^{-x}}
+#+end_export
+
+*** Función ReLu
+
+#+begin_export latex
+\text{ReLU}(x) = \max(0, x)
+
+#+end_export
+
+*** Función ELU
+
+#+begin_export latex
+\text{ELU}(x) =
+\begin{cases}
+x, & \text{if } x \geq 0 \\
+\alpha \left(e^{x} - 1\right), & \text{if } x < 0
+\end{cases}
+
+#+end_export
+
+*** Función LeakyReLu
+#+begin_export latex
+\text{LeakyReLU}(x) =
+\begin{cases}
+x, & \text{if } x \geq 0 \\
+\alpha x, & \text{if } x < 0
+\end{cases}
+
+#+end_export
+*** Función Swiss
+#+begin_export latex
+\text{Swish}(x) = x \cdot \sigma(\beta x)
+
+#+end_export
+
+
+* Ejemplos de modelos clásicos
+
+** Bosque Aleatorio
+
+*** Boosting
+*** Bagging
+
+** Redes Neuronales Convolusionales
+
+
+#+TÍTULO: Aplicación filtro Convolucional
+#+NOMBRE: fig:conv
+#+ATTR_LATEX: :width 0.8\textwidth :placement {c}
+[[./Artwork/iclh-diagram-convolutional-neural-networks.png]]
+
+Imagen tomada de [fn:5]
+
+
+
+** Redes Recurrentes
+#+TÍTULO: Aplicación filtro Convolucional
+#+NOMBRE: fig:conv
+#+ATTR_LATEX: :width 0.8\textwidth :placement {c}
+[[./Artwork/redes_recurrentes.pdf]]
+
+
+Imagen tomada de [fn:6]
+
+
+
+* Ejemplos avanzados
+** LSTM
+
+#+TÍTULO: Aplicación filtro Convolucional
+#+NOMBRE: fig:conv
+#+ATTR_LATEX: :width 0.8\textwidth :placement {c}
+[[./Artwork/lstm.pdf]]
+
+
+Tomado de[fn:7]
+
+** Transformers en SSL
+
+#+TÍTULO: Aplicación filtro Convolucional
+#+NOMBRE: fig:conv
+#+ATTR_LATEX: :width 0.8\textwidth :placement {c}
+[[./Artwork/transformers.png]]
+
+Tomado de [fn:8]
+
+* Ejercicio Practico
+
+Seguiremos el tutorial básico de OTBTF como material práctico [fn:1]
+
+Para mas detalles puedes revisar la documentación oficial de OTBTF [fn:2]
+
+El conjunto de datos es el siguiente:
+
++ Imagen[fn:3]
++ Poligonos de referencia [fn:4]
+
+
+Pasos a ejecutar:
+
+1. Muestreo de datos de entrenamiento
+
+
+#+begin_src python :exports code
+python sampling.py
+#+end_src
+
+2. Entrenamiento del modelo seleccionado
+
+#+begin_src python :exports code
+python training.py --model_dir /data/output/savedmodel
+#+end_src
+
+
+3. Inferencia
+
+#+begin_src python :exports code
+python inference.py
+#+end_src
+
+* Referencias
+:PROPERTIES:
+:UNNUMBERED: 1
+:END:
+
+#+print_bibliography: :heading none
+
+#+begin_export latex
+\newpage
+#+end_export
+
+* Footnotes
+[fn:8] https://heidloff.net/article/foundation-models-transformers-bert-and-gpt/
+
+[fn:7] https://www.projectpro.io/article/lstm-model/832
+[fn:6] https://www.analyticsvidhya.com/blog/2022/03/a-brief-overview-of-recurrent-neural-networks-rnn/
+
+[fn:5] https://www.ibm.com/think/topics/convolutional-neural-networks
+[fn:4] https://github.com/remicres/otbtf_tutorials_resources/blob/master/02_semantic_segmentation/amsterdam_dataset/terrain_truth/amsterdam_labelimage.tif
+
+[fn:3] https://space-solutions.airbus.com/imagery/sample-imagery/spot-7-ortho-amsterdam-netherlands/
+[fn:2] https://otbtf.readthedocs.io/
+
+[fn:1]  https://github.com/remicres/otbtf_keras_tutorial

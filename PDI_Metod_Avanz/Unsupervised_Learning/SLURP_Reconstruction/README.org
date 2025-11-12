@@ -1,0 +1,96 @@
+#+TITLE: Readme
+#+AUTHOR: Juan Sebastian Vinasco Salinas
+#+EMAIL: juan.vinasco@igac.gov.co
+
+
+* Ejemplo de aplicación de algoritmos debilmente supervisados
+
+
+** Codigo fuentes del proyecto
+
+#+begin_src bash
+git clone  https://github.com/CNES/slurp
+#+end_src
+
+** Fuente de datos
+
+1. Imagén Pleiades
+
+#+begin_src bash
+wget -r  https://earth.esa.int/eogateway/ftp/missions/sample-data/third-party-missions/pleiades/Polygon1_SO24012538-2-01_DS_PHR1B_202404231033373_FR1_PX_E005N43_0118_03298.zip
+#+end_src
+
+2. Ocurrencia de agua (Pekel)
+
+
+#+begin_src bash
+wget -r https://storage.googleapis.com/global-surface-water/downloads2021/occurrence/occurrence_0E_50Nv1_4_2021.tif
+#+end_src
+
+** Procedimiento del tutorial
+
+*** _
+
+#+begin_src bash
+docker pull orfeotoolbox/otb:9.1.0_ubuntu22
+
+# docker run -ti -v /home/juanse/Documents/ext_data/tmp:/data orfeotoolbox/otb:9.1.0
+docker run -ti -v /home/juanse/Documents/ext_data/tmp:/data orfeotoolbox/otb:9.1.0_ubuntu22
+# docker run -ti -v /home/juanse/Documents/ext_data/tmp:/data mdl4eo/otbtf
+
+
+# https://bootstrap.pypa.io/pip/3.8/get-pip.py
+python3 get-pip.py
+
+pip3 install virtualenv
+
+pip install slurp-masks
+#+end_src
+
+*** _
+
+#+begin_src bash
+mkdir out
+# Superimpose Pekel, Hand and WSF with OTB
+#
+# /!\ Adapt path depending on where your global Pekel database (resp. HAND, WSF) is located
+otbcli_Superimpose -inr /home/juanse/Documents/ext_data/tmp/slurp/pleiades/Polygon1_SO24012538-2-01_DS_PHR1B_202404231033373_FR1_PX_E005N43_0118_03298/6979455101/IMG_PHR1B_MS_002/IMG_PHR1B_MS_202404231033373_ORT_6979455101-2_R1C1.JP2 -inm /home/juanse/Documents/ext_data/tmp/slurp/pekel/occurrence_0E_50Nv1_4_2021.tif -out "/home/juanse/Documents/ext_data/tmp/slurp/out/pekel.tif?&gdal:co:TILED=YES&gdal:co:COMPRESS=DEFLATE" uint8 -interpolator nn
+otbcli_Superimpose -inr /home/juanse/Documents/ext_data/tmp/slurp/pleiades/Polygon1_SO24012538-2-01_DS_PHR1B_202404231033373_FR1_PX_E005N43_0118_03298/6979455101/IMG_PHR1B_MS_002/IMG_PHR1B_MS_202404231033373_ORT_6979455101-2_R1C1.JP2 -inm /home/juanse/Documents/ext_data/tmp/slurp/HAND/n40e005_hnd.tif  -out "/home/juanse/Documents/ext_data/tmp/slurp/out/hand.tif?&gdal:co:TILED=YES&gdal:co:COMPRESS=DEFLATE"
+otbcli_Superimpose -inr /home/juanse/Documents/ext_data/tmp/slurp/pleiades/Polygon1_SO24012538-2-01_DS_PHR1B_202404231033373_FR1_PX_E005N43_0118_03298/6979455101/IMG_PHR1B_MS_002/IMG_PHR1B_MS_202404231033373_ORT_6979455101-2_R1C1.JP2 -inm /home/juanse/Documents/ext_data/tmp/slurp/WSF_2019/WSF2019_v1_4_42.tif -out "/home/juanse/Documents/ext_data/tmp/slurp/out/wsf.tif?&gdal:co:TILED=YES&gdal:co:COMPRESS=DEFLATE" uint8 -interpolator nn
+
+# Prepare : computes primitives (NDVI / NDWI / textures)
+slurp_prepare main_config.json -file_vhr /data/slurp/pleiades/Polygon1_SO24012538-2-01_DS_PHR1B_202404231033373_FR1_PX_E005N43_0118_03298/6979455101/IMG_PHR1B_MS_002/IMG_PHR1B_MS_202404231033373_ORT_6979455101-2_R1C1.JP2
+
+
+
+slurp_prepare main_config_local.json -file_vhr ~/Documents/ext_data/tmp/slurp/pleiades/Polygon1_SO24012538-2-01_DS_PHR1B_202404231033373_FR1_PX_E005N43_0118_03298/6979455101/IMG_PHR1B_MS_002/IMG_PHR1B_MS_202404231033373_ORT_6979455101-2_R1C1.JP2
+
+# Watermask : learn from Pekel database and predict water occurrence
+slurp_watermask out/effective_used_config.json
+
+# Vegetationmask : segment image and apply clustering method to detect low/high vegetation
+slurp_vegetationmask out/effective_used_config.json
+
+# Shadowmask : threshold RGB and NIR to detect shadows
+slurp_shadowmask out/effective_used_config.json
+
+# Urbanmask : learn from WSF and compute urban probability
+slurp_urbanmask out/effective_used_config.json
+
+# Stack : regularize all the previous masks together
+slurp_stackmasks out/effective_used_config.json
+#+end_src
+
+
+
+
+* Referencias
+
+
++ [[https://github.com/CNES/slurp/tree/main][slurp repo]]
++ [[https://dataspace.copernicus.eu/explore-data/data-collections/copernicus-contributing-missions/collections-description/COP-DEM][copernicus dem]]
++ [[https://slurp-masks.readthedocs.io/en/latest/tutorial.html][slurp docs]]
++ [[https://viewer.esa-worldcover.org/worldcover/?language=en&bbox=0.4776702568554444,42.15634988545614,6.1853305192201855,44.15125211637607&overlay=false&bgLayer=OSM&date=2025-11-10&layer=WORLDCOVER_2021_MAP][esa lulc]]
++ [[https://www.orfeo-toolbox.org/CookBook-develop/Installation.html#create-an-healthy-python-environment-for-otb][install otb properly]]
++ [[https://src.koda.cnrs.fr/mmdc/mmdc-singledate/-/blob/master/create-conda-env.sh?ref_type=heads][install local repo]]
++ [[https://portal.opentopography.org/rasterOutput?jobId=rt1762826064726][download copernicus dem with opentopography]]

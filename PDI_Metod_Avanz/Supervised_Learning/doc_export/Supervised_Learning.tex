@@ -1,0 +1,221 @@
+% Created 2025-08-11 lun 14:25
+% Intended LaTeX compiler: pdflatex
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage[spanish]{babel}
+\usepackage{lmodern} % Ensures we have the right font
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{amsmath, amsthm, amssymb}
+\usepackage[table, xcdraw]{xcolor}
+\usepackage{listings}
+\usepackage{times}
+\usepackage[margin=0.79in]{geometry}
+\usepackage{setspace}
+\spacing{1.5}
+\renewcommand\maketitle{\begin{titlepage}
+\thispagestyle{empty}
+\begin{center}
+\vspace*{1cm}
+\hrule
+\\[0.5cm]\Large\textsc{ Introducción a al aprendizaje supervisado y arquitecturas}\\[0.5cm]
+\\[0.5cm]\large\textsc{ Diplomado en métodos avanzados en procesamiento digital de imágenes }\\[0.5cm]
+\includegraphics[width=\textwidth]{./Artwork/calamar_julio_2025.png}
+\\*[0.5cm]
+\hrule
+\\*[0.5cm]
+\large\today
+\\*[1cm]
+Juan Sebastian Vinasco Salinas\\
+\\*[1cm]
+Dirección de Investigación y Prospectiva\\
+\vfilL
+\includegraphics[height=3cm]{./Artwork/logo-igac-colorhorizontal.png}\\*[1cm]
+\end{center}
+\end{titlepage}}
+\author{Juan Sebastian Vinasco Salinas}
+\date{\today}
+\title{Supervised Learning}
+\hypersetup{
+ pdfauthor={Juan Sebastian Vinasco Salinas},
+ pdftitle={Supervised Learning},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 30.1 (Org mode 9.7.19)}, 
+ pdflang={Spanish}}
+\usepackage[backend=bibtex,style=ieee]{biblatex}
+\addbibresource{/home/juanse/Documents/Proyectos/IGAC_Diplomado/referencias/referecias_diplomado.bib}
+\begin{document}
+
+\maketitle
+\setcounter{tocdepth}{2}
+\tableofcontents
+
+\lstlistoflistings
+\listoftables
+
+\renewcommand{\listfigurename}{Lista de figuras}
+\listoffigures
+
+
+\newpage
+\section{Introducción al Aprendizaje Supervisado}
+\label{sec:org29861f0}
+
+\subsection{Introducción}
+\label{sec:orga963393}
+
+El aprendizaje supervisado es
+\subsection{Concepto de discretización}
+\label{sec:org16209f5}
+\subsection{Categorización de Modelos de Aprendizaje Supervisado}
+\label{sec:orgc6c6a79}
+
+\subsubsection{Regresión}
+\label{sec:orgd59775a}
+
+El objetivo es encontrar un valor continuo
+\subsubsection{Clasificación}
+\label{sec:org91da1d7}
+
+El objetivo es encontrar un valor categorico
+\subsection{Funciones de activación}
+\label{sec:org0efc0a3}
+
+\subsubsection{¿Que es una función de activación?}
+\label{sec:orgc9a8af6}
+\subsubsection{Función Sigmoide}
+\label{sec:org580b2c9}
+
+Función Sigmoide
+\sigma(x) = \frac{1}{1 + e^{-x}}
+\subsubsection{Función Tanjente hiperbolica}
+\label{sec:org77c3f5b}
+
+\tanh(x) = \frac{e^{x} - e^{-x}}{e^{x} + e^{-x}}
+\subsubsection{Función ReLu}
+\label{sec:org9a5b79c}
+
+\text{ReLU}(x) = \max(0, x)
+\subsubsection{Función ELU}
+\label{sec:orgf585847}
+
+\text{ELU}(x) =
+\begin{cases}
+x, & \text{if } x \geq 0 \\
+\alpha \left(e^{x} - 1\right), & \text{if } x < 0
+\end{cases}
+\subsubsection{Función LeakyReLu}
+\label{sec:orgd2a078c}
+\text{LeakyReLU}(x) =
+\begin{cases}
+x, & \text{if } x \geq 0 \\
+\alpha x, & \text{if } x < 0
+\end{cases}
+\subsubsection{Función Swiss}
+\label{sec:org91ab28f}
+\text{Swish}(x) = x \cdot \sigma(\beta x)
+\section{Ejemplos de modelos clásicos}
+\label{sec:org99007dd}
+
+\subsection{Bosque Aleatorio}
+\label{sec:org0c43298}
+
+\subsubsection{Boosting}
+\label{sec:orge9ec637}
+\subsubsection{Bagging}
+\label{sec:orgd877c60}
+\subsection{Redes Neuronales Convolusionales}
+\label{sec:org788bfed}
+
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{./Artwork/iclh-diagram-convolutional-neural-networks.png}
+\end{center}
+
+Imagen tomada de \footnote{\url{https://www.ibm.com/think/topics/convolutional-neural-networks}}
+\subsection{Redes Recurrentes}
+\label{sec:orge565adb}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{./Artwork/redes_recurrentes.pdf}
+\end{center}
+
+
+Imagen tomada de \footnote{\url{https://www.analyticsvidhya.com/blog/2022/03/a-brief-overview-of-recurrent-neural-networks-rnn/}}
+\section{Ejemplos avanzados}
+\label{sec:org0a2d581}
+\subsection{LSTM}
+\label{sec:orgd3ced93}
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{./Artwork/lstm.pdf}
+\end{center}
+
+
+Tomado de\footnote{\url{https://www.projectpro.io/article/lstm-model/832}}
+\subsection{Transformers en SSL}
+\label{sec:org8c39e00}
+
+\begin{center}
+\includegraphics[width=0.8\textwidth]{./Artwork/transformers.png}
+\end{center}
+
+Tomado de \footnote{\url{https://heidloff.net/article/foundation-models-transformers-bert-and-gpt/}}
+\section{Ejercicio Practico}
+\label{sec:org4b2f14f}
+
+Seguiremos el tutorial básico de OTBTF como material práctico \footnote{\url{https://github.com/remicres/otbtf\_keras\_tutorial}}
+
+Para mas detalles puedes revisar la documentación oficial de OTBTF \footnote{\url{https://otbtf.readthedocs.io/}}
+
+El conjunto de datos es el siguiente:
+
+\begin{itemize}
+\item Imagen\footnote{\url{https://space-solutions.airbus.com/imagery/sample-imagery/spot-7-ortho-amsterdam-netherlands/}}
+\item Poligonos de referencia \footnote{\url{https://github.com/remicres/otbtf\_tutorials\_resources/blob/master/02\_semantic\_segmentation/amsterdam\_dataset/terrain\_truth/amsterdam\_labelimage.tif}}
+\end{itemize}
+
+
+Pasos a ejecutar:
+
+\begin{enumerate}
+\item Muestreo de datos de entrenamiento
+\end{enumerate}
+
+
+\begin{verbatim}
+python sampling.py
+\end{verbatim}
+
+\begin{enumerate}
+\item Entrenamiento del modelo seleccionado
+\end{enumerate}
+
+\begin{verbatim}
+python training.py --model_dir /data/output/savedmodel
+\end{verbatim}
+
+
+\begin{enumerate}
+\item Inferencia
+\end{enumerate}
+
+\begin{verbatim}
+python inference.py
+\end{verbatim}
+\section*{Referencias}
+\label{sec:org636846a}
+\printbibliography[heading=none]
+
+\newpage
+\end{document}
