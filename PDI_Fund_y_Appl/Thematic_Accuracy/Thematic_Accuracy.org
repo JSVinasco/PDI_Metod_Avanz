@@ -1,0 +1,40 @@
+#+TITLE: Thematic Accuracy
+#+AUTHOR: Juan Sebastian Vinasco Salinas
+#+EMAIL: juan.vinasco@igac.gov.co
+#+BIBLIOGRAPHY: /home/juanse/Documents/Proyectos/IGAC_Diplomado/referencias/referecias_diplomado.bib
+#+EXPORT_FILE_NAME: /home/juanse/Documents/Proyectos/IGAC_Diplomado/PDI_Fund_y_Appl/Thematic_Accuracy/doc_export/Thematic_Accuracy.pdf
+#+CITE_EXPORT: biblatex backend=bibtex,style=ieee
+
+* Introduction to Thematic Accuracy
+* Componentes de la incertidumbre en mapas derivados de datos remotamente sensados
+
+Los prinpales componentes de la incertidumbre para mapas derivados de datos remotamente sensados [fn:1]
+
+#+begin_quote
+
+1. Resolución espaial del mapa.
+2. Ventana de tiempo del mapa
+3. Huecos en la información
+4. Unidad Minima de Mapeo
+5. Preción de la definición de cada categoría o variable
+6. Resolución tematica
+7. Preción en la geolocalización
+8. Preción tematica del mapa
+
+--  9th ESA Advanced Training Course on Land Remote Sensing 2019 (focus on Agriculture)
+#+end_quote
+
+
+
+
+* Referencias
+
+#+print_bibliography: :heading none
+
+#+begin_export latex
+\newpage
+#+end_export
+
+* Footnotes
+
+[fn:1] [[https://www.youtube.com/watch?v=vKrcNDUspws&list=PLvT7fd9OiI9Xn08gGpjr-KXhNBL6jnVpv&index=12][Accuracy assessment - Day 3.2 - YouTube]]

@@ -1,0 +1,18 @@
+#+TITLE: OBIA
+#+AUTHOR: Juan Sebastian Vinasco Salinas
+#+EMAIL: juan.vinasco@igac.gov.co
+#+BIBLIOGRAPHY: /home/juanse/Documents/Proyectos/IGAC_Diplomado/referencias/referecias_diplomado.bib
+#+EXPORT_FILE_NAME: /home/juanse/Documents/Proyectos/IGAC_Diplomado/PDI_Fund_y_Appl/OBIA/doc_export/OBIA.pdf
+#+CITE_EXPORT: biblatex backend=bibtex,style=ieee
+
+* Introducción
+
+
+
+* Referencias
+
+#+print_bibliography: :heading none
+
+#+begin_export latex
+\newpage
+#+end_export

@@ -1,0 +1,342 @@
+#+title: Evaluación de la exactitud Temática
+#+SUBTITLE: Una introducción
+#+AUTHOR:  Juan Sebastian Vinasco Salinas
+
+#+EXPORT_FILE_NAME: export/ta_intro_slides_igac.pdf
+
+#+LANGUAGE:  es
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [presentation,8pt, aspectratio=169, compress, xcolor=svgnames]
+#+BEAMER_THEME: Cesbio
+#+LATEX_HEADER: \setbeamertemplate{navigation symbols}{}
+#+LATEX_HEADER: \usepackage[english]{babel}
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+LATEX_HEADER: \usepackage{minted}
+#+LATEX_HEADER: \usepackage{tikz}
+#+LATEX_HEADER: \usemintedstyle{emacs}
+#+LATEX_HEADER: \usepackage{color}
+#+LATEX_HEADER: \usepackage{animate}
+#+LATEX_HEADER: \usepackage{subcaption}
+#+LATEX_HEADER: \newcommand{\shorttitle}{Bogotá - Colombia}
+#+LATEX_HEADER: \newcommand{\shortauthor}{Vinasco-Salinas}
+#+LATEX_HEADER: \institute{Instituto Geográfico Agustín Codazzi, Dirección de Investigación y Prospectiva,  Bogotá, COLOMBIA}
+#+LATEX_HEADER: %\usepackage[type={CC}, modifier={by-sa}, version={4.0},]{doclicense}
+#+LATEX_HEADER: \titlegraphic{\includegraphics[width=0.2\textwidth]{Artwork/logo-igac-colorhorizontal.png}}
+
+#+LATEX_HEADER: \usepackage[usenames,dvipsnames]{xcolor}
+#+LATEX_HEADER: \usepackage{tikz} \usetikzlibrary{calc, arrows.meta, intersections, patterns, positioning, shapes.misc, fadings, through,decorations.pathreplacing}
+#+LATEX_HEADER: \definecolor{ColorOne}{named}{MidnightBlue}
+#+LATEX_HEADER: \definecolor{ColorTwo}{named}{ForestGreen}
+#+LATEX_HEADER: \definecolor{ColorThree}{named}{Turquoise}
+
+#+LATEX_HEADER: \tikzstyle{descript} = [text = black,align=center, minimum height=1.8cm, align=center, outer sep=0pt,font = \footnotesize]
+#+LATEX_HEADER: \tikzstyle{activity} =[align=center,outer sep=1pt]
+
+#+STARTUP: hideblocks
+#+STARTUP: beamer
+
+#+BIBLIOGRAPHY: /home/juanse/Documents/ext_data/Proyectos/IGAC_Diplomado/referencias/referecias_diplomado.bib
+#+CITE_EXPORT: biblatex backend=bibtex,style=ieee
+
+
+* Introducción
+
+*** Introducción
+
+La derivación de mapas a partir de datos remotamente sensados requiere de un estudio critico de toda la cadena de procesamiento aplicada.
+
+Sus componentes que se detallaran a continuación, consideran desde aspectos en el modo en que se adquiere la información, hasta la descripción matematica mediante indicadores de calidad sobre los resultados de un modelo usualmente de aprendizaje de maquína (RF).
+
+Esta presentación se puede considerar una traducción del trabajo de Pierre Defourny [cite:@Nine-advanced-training-course-on-land-remote-sensing]
+
+* Componentes de la incertidumbre de mapas derivados de observación de la tierra
+
+*** Resolución Espacial del Mapa
+
+
+#+CAPTION: Ejemplo resultado de una clasificación
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.7\textwidth
+[[./Artwork/spatial_resolution.pdf]]
+
+
+*** Resolución Espacial del Mapa
+
+
+#+CAPTION: Ejemplo resultado de una clasificación
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.7\textwidth
+[[./Artwork/psf.png]]
+
+Tomado de:[fn:1]
+
+*** Lapso de tiempo del mapa
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+
+El lapso de tiempo entre las muestras tomadas por ejemplo por fotointerpretación o por campañas de toma de datos /in situ/, pueden y generalmente son diferentes a las fechas de captura de los sensores remotos.
+
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+CAPTION: Información faltante en los datos de teledetección
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width \textwidth
+[[./Artwork/crops.png]]
+
+
+*** Lapso de tiempo del mapa
+
+#+CAPTION: Hetereogeneidad temporal NDV vs gamma nought
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.8\textwidth
+[[./Artwork/hetereogeneidad_datos.png]]
+
+
+
+*** Brechas en la información
+
+#+CAPTION: Información faltante en los datos de teledetección
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width \textwidth
+[[./Artwork/vancouver_contours_superposition-1600x462.png]]
+
+*** Unidad Mínima de mapeo
+
+Según Olaya [cite:@olaya2009sistemas]
+
+#+CAPTION: Unidades mínimas de mapeo por sensor
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.5\textwidth
+[[./Artwork/Area-minima-cartografiable-imagenes-satelite-AMC.jpg]]
+
+
+Area-minima-cartografiable-imagenes-satelite-AMC.jpg
+
+* Comparación entre métodos directos e indirectos
+
+*** Muestreo de datos de referencia
+
+**** :BMCOL:
+
+Todos los efectos anteriormente citados y descritos, nos recuerdan algo fundamental, los métodos de teledetección son métodos indirectos, y es necesario usar métodos directos para estimar la valides de los métodos usados.
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+CAPTION: Comparación de métodos directos e indirectos
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.8\textwidth
+[[./Artwork/sampling.png]]
+
+*** Muestreo por foto-interpretación
+
+#+CAPTION: Unidades mínimas de mapeo por sensor
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.5\textwidth
+[[./Artwork/Figura-1-Interpretacion-de-fotografias-aereas-bajo-el-estereoscopio.png]]
+
+*** Muestreo de campo
+
+#+CAPTION: Unidades mínimas de mapeo por sensor
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.6\textwidth
+[[./Artwork/chesapeake-bay-watershed-fieldwork-lancaster-pa_0.jpg]]
+
+Tomado de [fn:3]
+
+*** Estrategías de muestreo
+#+CAPTION: Tipos de muestreo de campo
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.3\textwidth
+[[./Artwork/estrategias_muestreo_v2.png]]
+
+
+*** Precisión en la definicion de las variables categoricas
+
+#+CAPTION: Unidades mínimas de mapeo por sensor
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.3\textwidth
+[[./Artwork/Corine land cover classes.eps.75dpi.png]]
+
+
+Tomado de: [fn:2]
+*** Metricas en caso de variables categoricas :BMCOL:noexport:
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+begin_export latex
+\begin{equation}
+OA = \frac{
+\sum{i=1}{r} nii
+}{
+\sum{i=1}{r}\sum{j=1}{r} n_{ij}
+}
+\end{equation}
+#+end_export
+
+
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+begin_export latex
+\begin{equation}
+Recall = \frac{}{}
+\end{equation}
+#+end_export
+
+
+
+
+*** Metricas en caso de variables categoricas :BMCOL:noexport:
+
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.3
+:END:
+
+Precisión del Usuario:
+
+User Accuracy
+#+begin_export latex
+\begin{equation}
+UA_i = \sum{j=1}{r} \frac{n_{ii}}{n_{ij}}
+\end{equation}
+#+end_export
+
+
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.3
+:END:
+
+Producer Accuracy
+
+#+begin_export latex
+\begin{equation}
+PA_i = \sum{r}{j=1} \frac{n_{ii}}{n_{ij}}
+\end{equation}
+#+end_export
+
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.3
+:END:
+
+F-Score
+
+#+begin_export latex
+\begin{equation}
+FScore = 2x \frac{Precision * Recall} {Precision + Recall}
+\end{equation}
+#+end_export
+
+
+* Ejemplo práctico
+
+*** Ejemplo basado en la ejecución de la cadena de procesamiento Iota-2
+
+#+CAPTION: Ejemplo resultado de una clasificación
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.5\textwidth
+[[./Artwork/classif_Example.jpg]]
+
+
+
+
+
+
+*** Ejemplo basado en la ejecución de la cadena de procesamiento Iota-2
+
+#+CAPTION: Ejemplo resultado de una clasificación
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.5\textwidth
+[[./Artwork/Classif_mlp.png]]
+
+
+
+
+
+
+
+*** Ejemplo basado en la ejecución de la cadena de procesamiento Iota-2
+
+#+CAPTION: Validez de los pixeles utilizados en la clasificación
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.5\textwidth
+[[./Artwork/PixVal_Example.png]]
+
+
+
+
+
+
+
+*** Ejemplo basado en la ejecución de la cadena de procesamiento Iota-2
+
+#+CAPTION: Confianza del modelo en los resultados
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.5\textwidth
+[[./Artwork/confidence_example.jpg]]
+
+
+
+
+
+
+
+*** Ejemplo basado en la ejecución de la cadena de procesamiento Iota-2
+
+#+CAPTION: Vamos a practicar!!!
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.5\textwidth
+[[./Artwork/Confusion_Matrix_Classif_Seed_0.jpeg]]
+
+
+
+
+
+
+
+
+* Referencias
+:PROPERTIES:
+:Unnumbered: 1
+:END:
+
+*** Referencias
+
+#+print_bibliography: :heading none
+
+#+begin_export latex
+\newpage
+#+end_export
+
+* Footnotes
+
+[fn:3] https://www.usgs.gov/media/images/bernard-hubbard-ground-truthing-remote-sensing
+[fn:2] https://www.eea.europa.eu/data-and-maps/figures/corine-land-cover-1990-by-country/legend
+
+[fn:1]
+https://link.springer.com/article/10.1007/s11263-016-0948-8

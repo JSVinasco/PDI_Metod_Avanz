@@ -1,0 +1,32 @@
+#+TITLE: Satellite Image Time Series
+#+AUTHOR: Juan Sebastian Vinasco Salinas
+#+EMAIL: juan.vinasco@igac.gov.co
+#+BIBLIOGRAPHY: /home/juanse/Documents/Proyectos/IGAC_Diplomado/referencias/referecias_diplomado.bib
+#+EXPORT_FILE_NAME: /home/juanse/Documents/Proyectos/IGAC_Diplomado/PDI_Fund_y_Appl/SITS/doc_export/SITS.pdf
+#+CITE_EXPORT: biblatex backend=bibtex,style=ieee
+
+* Introducción Satellite Image Time Series (SITS)
+
+** Introducción
+*** Definición
+*** Cubos de datos - ARD
+*** Firmas espectro-temporales
+** Aplicaciones
+*** Relleno de datos faltantes
+*** Mapeo de uso y cobertura del suelo
+*** Monitoreo de actividades agricolas
+*** Mapeo de humedad del suelo
+*** Detección de cambios
+** Ejercicio practico
+
+Procesamiento de series de tiempo del satelite VENµS
+
+La idea es realizar ejemplos de procesamiento de series de tiempo usando madagascar como ejemplo y que los estudiantes repliquen el ejercicio en Colombia para que se enfrenten a condiciones reales de trabajo
+
+* Referencias
+
+#+print_bibliography: :heading none
+
+#+begin_export latex
+\newpage
+#+end_export

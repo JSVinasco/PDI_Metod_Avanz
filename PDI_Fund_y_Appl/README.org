@@ -1,0 +1,18 @@
+#+TITLE: README
+#+AUTHOR: Juan Sebastian Vinasco Salinas
+#+EMAIL: juan.vinasco@igac.gov.co
+
+#+BIBLIOGRAPHY: /home/juanse/Documents/Proyectos/IGAC_Diplomado/referencias/referecias_diplomado.bib
+#+EXPORT_FILE_NAME: /home/juanse/Documents/Proyectos/IGAC_Diplomado/PDI_Fund_y_Appl/PDI_Fundamentos_y_Applicaciones.pdf
+#+CITE_EXPORT: biblatex backend=bibtex,style=ieee
+
+
+
+* Diplomado: "/Procesamiento Digital de Imágenes: Fundamentos y  Aplicaciones/"
+
+** Clases a dictar
+
+
+*** Clasificación de imágenes basada en objetos
+*** Analisis de series de tiempo e imagenes de observación de la tierra
+*** Evaluación de la exactitud tematica

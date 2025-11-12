@@ -1,0 +1,457 @@
+#+title: Análisis de Imágenes Basada en Objetos
+#+SUBTITLE: En el contexto de los sensores remotos
+#+AUTHOR:  Juan Sebastián Vinasco Salinas
+
+#+EXPORT_FILE_NAME: export/obia_intro_slides_igac.pdf
+
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [presentation,8pt, aspectratio=169, compress, xcolor=svgnames]
+#+BEAMER_THEME: Cesbio
+#+LATEX_HEADER: \setbeamertemplate{navigation symbols}{}
+#+LATEX_HEADER: \usepackage[english]{babel}
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+LATEX_HEADER: \usepackage{minted}
+#+LATEX_HEADER: \usepackage{tikz}
+#+LATEX_HEADER: \usemintedstyle{emacs}
+#+LATEX_HEADER: \usepackage{color}
+#+LATEX_HEADER: \usepackage{animate}
+#+LATEX_HEADER: \usepackage{subcaption}
+#+LATEX_HEADER: \newcommand{\shorttitle}{Bogotá - Colombia}
+#+LATEX_HEADER: \newcommand{\shortauthor}{Vinasco-Salinas}
+#+LATEX_HEADER: \institute{Instituto Geográfico Agustín Codazzi, Dirección de Investigación y Prospectiva,  Bogotá, COLOMBIA}
+#+LATEX_HEADER: %\usepackage[type={CC}, modifier={by-sa}, version={4.0},]{doclicense}
+#+LATEX_HEADER: \titlegraphic{\includegraphics[width=0.2\textwidth]{Artwork/logo-igac-colorhorizontal.png}}
+
+#+LATEX_HEADER: \usepackage[usenames,dvipsnames]{xcolor}
+#+LATEX_HEADER: \usepackage{tikz} \usetikzlibrary{calc, arrows.meta, intersections, patterns, positioning, shapes.misc, fadings, through,decorations.pathreplacing}
+#+LATEX_HEADER: \definecolor{ColorOne}{named}{MidnightBlue}
+#+LATEX_HEADER: \definecolor{ColorTwo}{named}{ForestGreen}
+#+LATEX_HEADER: \definecolor{ColorThree}{named}{Turquoise}
+
+#+LATEX_HEADER: \tikzstyle{descript} = [text = black,align=center, minimum height=1.8cm, align=center, outer sep=0pt,font = \footnotesize]
+#+LATEX_HEADER: \tikzstyle{activity} =[align=center,outer sep=1pt]
+
+#+STARTUP: hideblocks
+#+STARTUP: beamer
+
+#+BIBLIOGRAPHY: /home/juanse/Documents/ext_data/Proyectos/IGAC_Diplomado/referencias/referecias_diplomado.bib
+#+CITE_EXPORT: biblatex backend=bibtex,style=ieee
+
+
+* Introducción
+
+*** Introducción
+
+
+El análisis de imágenes basado en objetos conocido por sus siglas en ingles *OBIA* (Object-based Image Analysis) se refiere a todas aquellas tareas en donde se busca agrupar pixeles y los procesamientos posteriores se realizan a el nivel de estos grupos [cite:@szeliski2022computer].
+
+
+*** Introducción
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+CAPTION: Ejemplo de una imagén médica
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.7\textwidth
+[[./Artwork/ITKSoftwareGuide-Book2363x.png]]
+
+
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+CAPTION: Ejemplo del resultado de una segmentación con ITK
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.7\textwidth
+[[./Artwork/ITKSoftwareGuide-Book2366x.png]]
+
+
+
+*** Introducción
+
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+Para el caso particular que nos atañe nos referimos a GEOBIA, a la aplicación de las técnicas de OBIA en el contexto de los datos geográficos y en particular para las fotografías aéreas o a las imágenes tomadas por sensores remotos.
+
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+CAPTION: Ejemplo de un OBIA con OTB
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.8\textwidth
+[[./Artwork/otb_obia.png]]
+
+
+
+*** Introducción
+
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+En otras diciplinas conexas, este problema puede conocerse por otros nombres, tal como es análisis de grupos (en ingles/cluster analysis/ o /clustering/) [cite:@szeliski2022computer].
+
+Y se refiere a el problema general de buscar datos similares en un conjunto de datos restringido por la vecindad de los pixeles .
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+CAPTION: Ejemplo de un OBIA con OTB
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.8\textwidth
+[[./Artwork/clustering_example.png]]
+
+
+
+*** Herramientas
+
+Para ilustrar de manera practica la aplicación de distintos ejemplos de los algoritmos de OBIA, nos basaremos en una de las herramientas mas avanzadas en este tema que es la biblioteca llamada Orfeo Toolbox [cite:@grizonnet2017orfeo]
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+CAPTION: Ejemplo de un OBIA con OTB
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.8\textwidth
+[[./Artwork/otb_logo.png]]
+
+*** Razionalidad de los algoritmos de OBIA
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+Es importante resaltar que los algoritmos de OBIA son particularmente utiles cuando
+
++ Los objetos de estudio son mucho mas grandes (>>) que el tamaño de los pixeles
+
++ Esto se da principalmente cuando se tiene acceso a datos de muy alta resolución (VHR)
+
++ Es posible combinar la extracción de objetos, con la clasificaciones para otorgar etiquetas a los objetos.
+
++ Estos algorimos tiene dificultades para escalar a grandes imagenes
+
++ Tambien tienen problemas con la consistencia en sus resultados
+
+Tomado de[fn:1]
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+
+#+CAPTION: Ejemplo de un OBIA clasificado con OTB
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.8\textwidth
+[[./Artwork/otb_clasif_result.jpg]]
+
+
+
+* Algoritmos Clasicos
+
+*** Mean-Shift
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+Como funciona
+
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+CAPTION: Ejemplo de un OBIA con OTB
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.8\textwidth
+[[./Artwork/tools_SegmentationPreview.png]]
+
+
+*** Mean-Shift
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+Parametros en OTB:
+
++ Radio Espacial
++ Rando del radio
++ Limite de modo de convergencia
++ Numero máximo de iteraciones
++ tamaño minimo de una region
+
+
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+CAPTION: Ejemplo de un OBIA con OTB
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.8\textwidth
+[[./Artwork/tools_SegmentationPreview.png]]
+
+
+
+*** Connected components
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+
+Como funciona
+
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+CAPTION: Ejemplo de un OBIA con OTB
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.8\textwidth
+[[./Artwork/tools_SegmentationPreview.png]]
+
+
+*** Connected components
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+
+Parametros en OTB:
+
++ Condicion de conexion:
+  Permite usar una expresion matematica que condiona la conexion de componentes
+
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+CAPTION: Ejemplo de un OBIA con OTB
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.8\textwidth
+[[./Artwork/tools_SegmentationPreview.png]]
+
+
+
+*** Watershed
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+
+Como funciona
+
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+CAPTION: Ejemplo de un OBIA con OTB
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.8\textwidth
+[[./Artwork/tools_SegmentationPreview.png]]
+
+
+*** Watershed
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+Paramétros OTB
++ Profundidad del limite
++ Nivel de la inundación
+
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+CAPTION: Ejemplo de un OBIA con OTB
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.8\textwidth
+[[./Artwork/tools_SegmentationPreview.png]]
+
+
+
+*** Morphological profiles based segmentation
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+
+Como funciona
+
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+CAPTION: Ejemplo de un OBIA con OTB
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.8\textwidth
+[[./Artwork/tools_SegmentationPreview.png]]
+
+
+*** Morphological profiles based segmentation
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+Paramétros OTB
+
+
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+CAPTION: Ejemplo de un OBIA con OTB
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.8\textwidth
+[[./Artwork/tools_SegmentationPreview.png]]
+
+
+
+*** Large-Scale Mean-Shift (LSMS) segmentation
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+Como funciona
+
+Este queda de ejercicio para la casa
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+CAPTION: Ejemplo de un OBIA con OTB
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.8\textwidth
+[[./Artwork/tools_SegmentationPreview.png]]
+
+
+
+* Super pixeles
+
+*** Super pixeles
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+
+
+Tomado de [fn:2]
+
+
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+CAPTION: Ejemplo de un OBIA con OTB
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.8\textwidth
+[[./Artwork/tools_SegmentationPreview.png]]
+
+
+
+
+* Alternativas privativas
+
+*** E-CognitioN
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+
+
+Tomado de [fn:2]
+
+
+
+**** :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+CAPTION: Ejemplo de un OBIA con OTB
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.8\textwidth
+[[./Artwork/tools_SegmentationPreview.png]]
+
+
+
+
+
+* Referencias
+:PROPERTIES:
+:UNNUMBERED: 1
+:END:
+
+
+*** Referencias
+
+#+print_bibliography: :heading none
+
+#+begin_export latex
+\newpage
+#+end_export
+
+* Footnotes
+[fn:2] https://docs.ecognition.com/eCognition_documentation/User%20Guide%20Developer/14%20Tools.htm
+
+[fn:1] https://www.youtube.com/watch?v=fX2UpOwoYLk
+# Local Variables:
+# jinx-languages: "es_CO"
+# End:

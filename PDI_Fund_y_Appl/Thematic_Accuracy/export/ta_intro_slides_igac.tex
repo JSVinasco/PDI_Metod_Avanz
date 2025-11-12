@@ -1,0 +1,221 @@
+% Created 2025-09-25 jue 16:04
+% Intended LaTeX compiler: pdflatex
+\documentclass[presentation,8pt, aspectratio=169, compress, xcolor=svgnames]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\setbeamertemplate{navigation symbols}{}
+\usepackage[english, spanish]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{minted}
+\usepackage{tikz}
+\usemintedstyle{emacs}
+\usepackage{color}
+\usepackage{animate}
+\usepackage{subcaption}
+\newcommand{\shorttitle}{Bogotá - Colombia}
+\newcommand{\shortauthor}{Vinasco-Salinas}
+\institute{Instituto Geográfico Agustín Codazzi, Dirección de Investigación y Prospectiva,  Bogotá, COLOMBIA}
+%\usepackage[type={CC}, modifier={by-sa}, version={4.0},]{doclicense}
+\titlegraphic{\includegraphics[width=0.2\textwidth]{Artwork/logo-igac-colorhorizontal.png}}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{tikz} \usetikzlibrary{calc, arrows.meta, intersections, patterns, positioning, shapes.misc, fadings, through,decorations.pathreplacing}
+\definecolor{ColorOne}{named}{MidnightBlue}
+\definecolor{ColorTwo}{named}{ForestGreen}
+\definecolor{ColorThree}{named}{Turquoise}
+\tikzstyle{descript} = [text = black,align=center, minimum height=1.8cm, align=center, outer sep=0pt,font = \footnotesize]
+\tikzstyle{activity} =[align=center,outer sep=1pt]
+\usetheme{Cesbio}
+\author{Juan Sebastian Vinasco Salinas}
+\date{\today}
+\title{Evaluación de la exactitud Temática}
+\subtitle{Una introducción}
+\hypersetup{
+ pdfauthor={Juan Sebastian Vinasco Salinas},
+ pdftitle={Evaluación de la exactitud Temática},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 30.2 (Org mode 9.7.19)}, 
+ pdflang={Spanish}}
+\usepackage[backend=bibtex,style=ieee]{biblatex}
+\addbibresource{/home/juanse/Documents/ext_data/Proyectos/IGAC_Diplomado/referencias/referecias_diplomado.bib}
+\begin{document}
+
+\maketitle
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
+
+\section{Introducción}
+\label{sec:org591762e}
+
+\begin{frame}[label={sec:org33d472a}]{Introducción}
+La derivación de mapas a partir de datos remotamente sensados requiere de un estudio critico de toda la cadena de procesamiento aplicada.
+
+Sus componentes que se detallaran a continuación, consideran desde aspectos en el modo en que se adquiere la información, hasta la descripción matematica mediante indicadores de calidad sobre los resultados de un modelo usualmente de aprendizaje de maquína (RF).
+
+Esta presentación se puede considerar una traducción del trabajo de Pierre Defourny \autocite{Nine-advanced-training-course-on-land-remote-sensing}
+\end{frame}
+\section{Componentes de la incertidumbre de mapas derivados de observación de la tierra}
+\label{sec:orge41582f}
+
+\begin{frame}[label={sec:orgab5d620}]{Resolución Espacial del Mapa}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\textwidth]{./Artwork/spatial_resolution.pdf}
+\caption{\label{fig:gato}Ejemplo resultado de una clasificación}
+\end{figure}
+\end{frame}
+\begin{frame}[label={sec:org19237de}]{Resolución Espacial del Mapa}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\textwidth]{./Artwork/psf.png}
+\caption{\label{fig:gato}Ejemplo resultado de una clasificación}
+\end{figure}
+
+Tomado de:\footnote{\url{https://link.springer.com/article/10.1007/s11263-016-0948-8}}
+\end{frame}
+\begin{frame}[label={sec:orgad0a224}]{Lapso de tiempo del mapa}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+El lapso de tiempo entre las muestras tomadas por ejemplo por fotointerpretación o por campañas de toma de datos \emph{in situ}, pueden y generalmente son diferentes a las fechas de captura de los sensores remotos.
+\end{column}
+\begin{column}{0.5\columnwidth}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{./Artwork/crops.png}
+\caption{\label{fig:gato}Información faltante en los datos de teledetección}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}[label={sec:orgec59941}]{Lapso de tiempo del mapa}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{./Artwork/hetereogeneidad_datos.png}
+\caption{\label{fig:gato}Hetereogeneidad temporal NDV vs gamma nought}
+\end{figure}
+\end{frame}
+\begin{frame}[label={sec:org1adf7c4}]{Brechas en la información}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{./Artwork/vancouver_contours_superposition-1600x462.png}
+\caption{\label{fig:gato}Información faltante en los datos de teledetección}
+\end{figure}
+\end{frame}
+\begin{frame}[label={sec:orga87dd91}]{Unidad Mínima de mapeo}
+Según Olaya \autocite{olaya2009sistemas}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{./Artwork/Area-minima-cartografiable-imagenes-satelite-AMC.jpg}
+\caption{\label{fig:gato}Unidades mínimas de mapeo por sensor}
+\end{figure}
+
+
+Area-minima-cartografiable-imagenes-satelite-AMC.jpg
+\end{frame}
+\section{Comparación entre métodos directos e indirectos}
+\label{sec:org34f1fe2}
+
+\begin{frame}[label={sec:org57d0a5f}]{Muestreo de datos de referencia}
+\begin{block}{}
+Todos los efectos anteriormente citados y descritos, nos recuerdan algo fundamental, los métodos de teledetección son métodos indirectos, y es necesario usar métodos directos para estimar la valides de los métodos usados.
+\end{block}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{./Artwork/sampling.png}
+\caption{\label{fig:gato}Comparación de métodos directos e indirectos}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}[label={sec:orgeb975c0}]{Muestreo por foto-interpretación}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{./Artwork/Figura-1-Interpretacion-de-fotografias-aereas-bajo-el-estereoscopio.png}
+\caption{\label{fig:gato}Unidades mínimas de mapeo por sensor}
+\end{figure}
+\end{frame}
+\begin{frame}[label={sec:orge76249f}]{Muestreo de campo}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{./Artwork/chesapeake-bay-watershed-fieldwork-lancaster-pa_0.jpg}
+\caption{\label{fig:gato}Unidades mínimas de mapeo por sensor}
+\end{figure}
+
+Tomado de \footnote{\url{https://www.usgs.gov/media/images/bernard-hubbard-ground-truthing-remote-sensing}}
+\end{frame}
+\begin{frame}[label={sec:org7b0c209}]{Estrategías de muestreo}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.3\textwidth]{./Artwork/estrategias_muestreo_v2.png}
+\caption{\label{fig:gato}Tipos de muestreo de campo}
+\end{figure}
+\end{frame}
+\begin{frame}[label={sec:org2580e5c}]{Precisión en la definicion de las variables categoricas}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.3\textwidth]{./Artwork/Corine land cover classes.eps.75dpi.png}
+\caption{\label{fig:gato}Unidades mínimas de mapeo por sensor}
+\end{figure}
+
+
+Tomado de: \footnote{\url{https://www.eea.europa.eu/data-and-maps/figures/corine-land-cover-1990-by-country/legend}}
+\end{frame}
+\section{Ejemplo práctico}
+\label{sec:org174e314}
+
+\begin{frame}[label={sec:orge924c32}]{Ejemplo basado en la ejecución de la cadena de procesamiento Iota-2}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{./Artwork/classif_Example.jpg}
+\caption{\label{fig:gato}Ejemplo resultado de una clasificación}
+\end{figure}
+\end{frame}
+\begin{frame}[label={sec:orgb00cf42}]{Ejemplo basado en la ejecución de la cadena de procesamiento Iota-2}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{./Artwork/Classif_mlp.png}
+\caption{\label{fig:gato}Ejemplo resultado de una clasificación}
+\end{figure}
+\end{frame}
+\begin{frame}[label={sec:org34749ff}]{Ejemplo basado en la ejecución de la cadena de procesamiento Iota-2}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{./Artwork/PixVal_Example.png}
+\caption{\label{fig:gato}Validez de los pixeles utilizados en la clasificación}
+\end{figure}
+\end{frame}
+\begin{frame}[label={sec:org2b76962}]{Ejemplo basado en la ejecución de la cadena de procesamiento Iota-2}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{./Artwork/confidence_example.jpg}
+\caption{\label{fig:gato}Confianza del modelo en los resultados}
+\end{figure}
+\end{frame}
+\begin{frame}[label={sec:org4457be6}]{Ejemplo basado en la ejecución de la cadena de procesamiento Iota-2}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.5\textwidth]{./Artwork/Confusion_Matrix_Classif_Seed_0.jpeg}
+\caption{\label{fig:gato}Vamos a practicar!!!}
+\end{figure}
+\end{frame}
+\section*{Referencias}
+\label{sec:org68ac485}
+\begin{frame}[label={sec:org6927e50}]{Referencias}
+\printbibliography[heading=none]
+
+\newpage
+\end{frame}
+\end{document}

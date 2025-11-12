@@ -1,0 +1,340 @@
+% Created 2025-09-17 mié 21:49
+% Intended LaTeX compiler: pdflatex
+\documentclass[presentation,8pt, aspectratio=169, compress, xcolor=svgnames]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\setbeamertemplate{navigation symbols}{}
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{minted}
+\usepackage{tikz}
+\usemintedstyle{emacs}
+\usepackage{color}
+\usepackage{animate}
+\usepackage{subcaption}
+\newcommand{\shorttitle}{Bogotá - Colombia}
+\newcommand{\shortauthor}{Vinasco-Salinas}
+\institute{Instituto Geográfico Agustín Codazzi, Dirección de Investigación y Prospectiva,  Bogotá, COLOMBIA}
+%\usepackage[type={CC}, modifier={by-sa}, version={4.0},]{doclicense}
+\titlegraphic{\includegraphics[width=0.2\textwidth]{Artwork/logo-igac-colorhorizontal.png}}
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{tikz} \usetikzlibrary{calc, arrows.meta, intersections, patterns, positioning, shapes.misc, fadings, through,decorations.pathreplacing}
+\definecolor{ColorOne}{named}{MidnightBlue}
+\definecolor{ColorTwo}{named}{ForestGreen}
+\definecolor{ColorThree}{named}{Turquoise}
+\tikzstyle{descript} = [text = black,align=center, minimum height=1.8cm, align=center, outer sep=0pt,font = \footnotesize]
+\tikzstyle{activity} =[align=center,outer sep=1pt]
+\usetheme{Cesbio}
+\author{Juan Sebastián Vinasco Salinas}
+\date{\today}
+\title{Análisis de Imágenes Basada en Objetos}
+\subtitle{En el contexto de los sensores remotos}
+\hypersetup{
+ pdfauthor={Juan Sebastián Vinasco Salinas},
+ pdftitle={Análisis de Imágenes Basada en Objetos},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 30.2 (Org mode 9.7.19)}, 
+ pdflang={English}}
+\usepackage[backend=bibtex,style=ieee]{biblatex}
+\addbibresource{/home/juanse/Documents/ext_data/Proyectos/IGAC_Diplomado/referencias/referecias_diplomado.bib}
+\begin{document}
+
+\maketitle
+\begin{frame}{Outline}
+\tableofcontents
+\end{frame}
+
+\section{Introducción}
+\label{sec:orgd93a048}
+
+\begin{frame}[label={sec:org421fdf8}]{Introducción}
+El análisis de imágenes basado en objetos conocido por sus siglas en ingles \alert{OBIA} (Object-based Image Analysis) se refiere a todas aquellas tareas en donde se busca agrupar pixeles y los procesamientos posteriores se realizan a el nivel de estos grupos \autocite{szeliski2022computer}.
+\end{frame}
+\begin{frame}[label={sec:org1647e95}]{Introducción}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\textwidth]{./Artwork/ITKSoftwareGuide-Book2363x.png}
+\caption{\label{fig:gato}Ejemplo de una imagén médica}
+\end{figure}
+\end{column}
+\begin{column}{0.5\columnwidth}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.7\textwidth]{./Artwork/ITKSoftwareGuide-Book2366x.png}
+\caption{\label{fig:gato}Ejemplo del resultado de una segmentación con ITK}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}[label={sec:org227f953}]{Introducción}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+Para el caso particular que nos atañe nos referimos a GEOBIA, a la aplicación de las técnicas de OBIA en el contexto de los datos geográficos y en particular para las fotografías aéreas o a las imágenes tomadas por sensores remotos.
+\end{column}
+\begin{column}{0.5\columnwidth}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{./Artwork/otb_obia.png}
+\caption{\label{fig:gato}Ejemplo de un OBIA con OTB}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}[label={sec:org44ff648}]{Introducción}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+En otras diciplinas conexas, este problema puede conocerse por otros nombres, tal como es análisis de grupos (en ingles/cluster analysis/ o \emph{clustering}) \autocite{szeliski2022computer}.
+
+Y se refiere a el problema general de buscar datos similares en un conjunto de datos restringido por la vecindad de los pixeles .
+\end{column}
+\begin{column}{0.5\columnwidth}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{./Artwork/clustering_example.png}
+\caption{\label{fig:gato}Ejemplo de un OBIA con OTB}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}[label={sec:org0faee1d}]{Herramientas}
+Para ilustrar de manera practica la aplicación de distintos ejemplos de los algoritmos de OBIA, nos basaremos en una de las herramientas mas avanzadas en este tema que es la biblioteca llamada Orfeo Toolbox \autocite{grizonnet2017orfeo}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{./Artwork/otb_logo.png}
+\caption{\label{fig:gato}Ejemplo de un OBIA con OTB}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}[label={sec:orgc7ebce9}]{Razionalidad de los algoritmos de OBIA}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+Es importante resaltar que los algoritmos de OBIA son particularmente utiles cuando
+
+\begin{itemize}
+\item Los objetos de estudio son mucho mas grandes (>>) que el tamaño de los pixeles
+
+\item Esto se da principalmente cuando se tiene acceso a datos de muy alta resolución (VHR)
+
+\item Es posible combinar la extracción de objetos, con la clasificaciones para otorgar etiquetas a los objetos.
+
+\item Estos algorimos tiene dificultades para escalar a grandes imagenes
+
+\item Tambien tienen problemas con la consistencia en sus resultados
+\end{itemize}
+
+Tomado de\footnote{\url{https://www.youtube.com/watch?v=fX2UpOwoYLk}}
+\end{column}
+\begin{column}{0.5\columnwidth}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{./Artwork/otb_clasif_result.jpg}
+\caption{\label{fig:gato}Ejemplo de un OBIA clasificado con OTB}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+\section{Algoritmos Clasicos}
+\label{sec:orga9be052}
+
+\begin{frame}[label={sec:org3ff5b50}]{Mean-Shift}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+Como funciona
+\end{column}
+\begin{column}{0.5\columnwidth}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{./Artwork/tools_SegmentationPreview.png}
+\caption{\label{fig:gato}Ejemplo de un OBIA con OTB}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}[label={sec:orgf52855f}]{Mean-Shift}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+Parametros en OTB:
+
+\begin{itemize}
+\item Radio Espacial
+\item Rando del radio
+\item Limite de modo de convergencia
+\item Numero máximo de iteraciones
+\item tamaño minimo de una region
+\end{itemize}
+\end{column}
+\begin{column}{0.5\columnwidth}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{./Artwork/tools_SegmentationPreview.png}
+\caption{\label{fig:gato}Ejemplo de un OBIA con OTB}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}[label={sec:orgd053c1d}]{Connected components}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+Como funciona
+\end{column}
+\begin{column}{0.5\columnwidth}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{./Artwork/tools_SegmentationPreview.png}
+\caption{\label{fig:gato}Ejemplo de un OBIA con OTB}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}[label={sec:org3b922ba}]{Connected components}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+Parametros en OTB:
+
+\begin{itemize}
+\item Condicion de conexion:
+Permite usar una expresion matematica que condiona la conexion de componentes
+\end{itemize}
+\end{column}
+\begin{column}{0.5\columnwidth}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{./Artwork/tools_SegmentationPreview.png}
+\caption{\label{fig:gato}Ejemplo de un OBIA con OTB}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}[label={sec:orge012ce0}]{Watershed}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+Como funciona
+\end{column}
+\begin{column}{0.5\columnwidth}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{./Artwork/tools_SegmentationPreview.png}
+\caption{\label{fig:gato}Ejemplo de un OBIA con OTB}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}[label={sec:orgb94fa7b}]{Watershed}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+Paramétros OTB
+\begin{itemize}
+\item Profundidad del limite
+\item Nivel de la inundación
+\end{itemize}
+\end{column}
+\begin{column}{0.5\columnwidth}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{./Artwork/tools_SegmentationPreview.png}
+\caption{\label{fig:gato}Ejemplo de un OBIA con OTB}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}[label={sec:org8c0c5cc}]{Morphological profiles based segmentation}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+Como funciona
+\end{column}
+\begin{column}{0.5\columnwidth}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{./Artwork/tools_SegmentationPreview.png}
+\caption{\label{fig:gato}Ejemplo de un OBIA con OTB}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}[label={sec:org50a434b}]{Morphological profiles based segmentation}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+Paramétros OTB
+\end{column}
+\begin{column}{0.5\columnwidth}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{./Artwork/tools_SegmentationPreview.png}
+\caption{\label{fig:gato}Ejemplo de un OBIA con OTB}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+\begin{frame}[label={sec:org3ebd14b}]{Large-Scale Mean-Shift (LSMS) segmentation}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+Como funciona
+
+Este queda de ejercicio para la casa
+\end{column}
+\begin{column}{0.5\columnwidth}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{./Artwork/tools_SegmentationPreview.png}
+\caption{\label{fig:gato}Ejemplo de un OBIA con OTB}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+\section{Super pixeles}
+\label{sec:orgc63bb2d}
+
+\begin{frame}[label={sec:org5a07128}]{Super pixeles}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+Tomado de \footnote{\url{https://docs.ecognition.com/eCognition\_documentation/User\%20Guide\%20Developer/14\%20Tools.htm}\label{org8f65244}}
+\end{column}
+\begin{column}{0.5\columnwidth}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{./Artwork/tools_SegmentationPreview.png}
+\caption{\label{fig:gato}Ejemplo de un OBIA con OTB}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+\section{Alternativas privativas}
+\label{sec:org4fc6987}
+
+\begin{frame}[label={sec:org79dd017}]{E-CognitioN}
+\begin{columns}
+\begin{column}{0.5\columnwidth}
+Tomado de \textsuperscript{\ref{org8f65244}}
+\end{column}
+\begin{column}{0.5\columnwidth}
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{./Artwork/tools_SegmentationPreview.png}
+\caption{\label{fig:gato}Ejemplo de un OBIA con OTB}
+\end{figure}
+\end{column}
+\end{columns}
+\end{frame}
+\section*{Referencias}
+\label{sec:orgfd0141a}
+\begin{frame}[label={sec:org0141293}]{Referencias}
+\printbibliography[heading=none]
+
+\newpage
+\end{frame}
+\end{document}

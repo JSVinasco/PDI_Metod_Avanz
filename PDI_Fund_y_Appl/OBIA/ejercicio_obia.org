@@ -1,0 +1,208 @@
+#+TITLE: Ejercicio Obia
+#+AUTHOR: Juan Sebastian Vinasco Salinas
+#+EMAIL:  juan.vinasco@igac.gov.co
+
+
+* Ejercicio practico de Geo-OBIA
+
+El presente documento ilustras los pasos para replicar el ejercicio propuesto en la clase de OBIA.
+
+Como nota al margen se usara el termino "segmentación" en el sentido de las ciencia de /Sensores Remotos/ y no en el sentido usado en las ciencas de /Visión por computador/ que no son intercambiables.
+
+Adicionalmente, los ejercicios mezclaran el uso de QGIS (versión 3.40.9-Bratislava) y de Monteverdi (que es la interfaz gráfica de Orfeo Toolbox en su versión 8.1.2), tenga en cuenta que monteverdi solo esta disponible para esta versión o anteriores, OTB 9.x o superior descontinúan monteverdi en favor de la integración con QGIS.
+
+** Fuente de datos
+
+La fuente de datos propuesta para el ejercico es el almacen de datos de pruebas de la biblioteca Orfeo Toolbox, tenga en cuenta que algunas de estas imagenes no tiene sistema de referencia asignado y al momento de ser visualizadas en QGIS, esto puede generar problemas.
+
+
+Datos:
+
++ [[https://gitlab.orfeo-toolbox.org/orfeotoolbox/data/-/raw/main/Input/qb_RoadExtract.tif?ref_type=heads&inline=false][Fuente de datos ejercico extraccion de bordes]]
++ [[https://gitlab.orfeo-toolbox.org/orfeotoolbox/data/-/blob/main/Input/ROI_QB_MUL_1.tif?ref_type=heads][Fuente de datos ejercicio segmentacion y extracción de características]]
+
+** Detección de bordes o zonas de alta frecuencia con sobel
+
+Un aproximación rápida para la extracción de características lineales es el uso de filtros como lo son el filtro de Sobel, este filtro en particular explota el calculo de derivadas direccionales para determinar las zonas donde los cambios en los pixeles son mas altos, permitiendo así la identificación de elementos lineales o bordes:
+
+1. Primer paso: Desplegar los algoritmos de OTB.
+
+#+CAPTION: Desplegar panel de algoritmos
+#+NAME: fig:moringa_modificado
+#+ATTR_HTML: :width 400px
+[[/home/juanse/Documents/ext_data/Proyectos/IGAC_Diplomado/PDI_Fund_y_Appl/OBIA/Imagenes_Guia/MostrarPaneldeAlgoritmos.png]]
+
+
+
+2. Seleccionar el panel de detección de bordes
+
+#+CAPTION: Selección panel de detección de bordes
+#+NAME: fig:moringa_modificado
+#+ATTR_HTML: :width 400px
+[[/home/juanse/Documents/ext_data/Proyectos/IGAC_Diplomado/PDI_Fund_y_Appl/OBIA/Imagenes_Guia/SeleccionarEdge.png]]
+
+3. Aplicar el algoritmo de filtro de sobel
+   + Seleccione el algoritmo deseado en el panel de la izquierda (marcado en color verde)
+   + Introduzca la ruta completa de las imágenes de entrada (marcado en amarillo) y salida (marcado en azul claro)
+   + Seleccione el algoritmo a aplicar (marcado en blanco) (están disponibles también el algoritmo de gradiente y el de touzi)
+
+#+CAPTION: Aplicar el algoritmo de filtro de sobel
+#+NAME: fig:moringa_modificado
+#+ATTR_HTML: :width 400px
+[[/home/juanse/Documents/ext_data/Proyectos/IGAC_Diplomado/PDI_Fund_y_Appl/OBIA/Imagenes_Guia/AplicarSobel.png]]
+
+
+Finalmente comparamos las imágenes de entrada y salida:
+
+#+CAPTION:
+#+NAME: fig:moringa_modificado
+#+ATTR_HTML: :width 400px
+[[/home/juanse/Documents/ext_data/Proyectos/IGAC_Diplomado/PDI_Fund_y_Appl/OBIA/Imagenes_Guia/EntradaBorde.png]]
+
+#+CAPTION:
+#+NAME: fig:moringa_modificado
+#+ATTR_HTML: :width 400px
+[[/home/juanse/Documents/ext_data/Proyectos/IGAC_Diplomado/PDI_Fund_y_Appl/OBIA/Imagenes_Guia/SalidaBorde.png]]
+
+
+
+
+
+** Segmentación
+
+*** Segmentación
+
+Similar a el ejercicio anterior, pero esta vez usando QGIS como interfaz gráfica, aplicaremos un algoritmo de segmentación siguiendo los siguientes pasos:
+
+1. Abra la caja de herramientas de geoprocesos de QGIS, despliegue el "proveedor" OTB, en su categoría "Segmentación" y seleccione la aplicación "Segmentación" (marcado en verde en la imagen)
+2. Seleccione la imagen objetivo de la lista desplegables (marcado en amarillo)
+3. Seleccione el algoritmo que desee aplicar y parametrización según su criterio (marcado en azul claro) (La lista de algoritmos son: meanshift, conected componentes, watershed, mprofiles)
+4. Seleccione el modo *raster* (marcado en rojo) (paso importante el modo vectorial tiende a fallar)
+5. Seleccione un archivo de salida (marcado en azul oscuro)
+
+#+CAPTION: Segmentación meanshift
+#+NAME: fig:moringa_modificado
+#+ATTR_HTML: :width 400px
+[[/home/juanse/Documents/ext_data/Proyectos/IGAC_Diplomado/PDI_Fund_y_Appl/OBIA/Imagenes_Guia/AplicarSegmentacion.png]]
+
+La salida del modulo, es como la siguiente
+
+#+CAPTION: Salida de la Segmentación Meanshift
+#+NAME: fig:moringa_modificado
+#+ATTR_HTML: :width 400px
+[[/home/juanse/Documents/ext_data/Proyectos/IGAC_Diplomado/PDI_Fund_y_Appl/OBIA/Imagenes_Guia/SalidaSegmentacion.png]]
+
+Con el objetivo de mejorar la visualización, podemos asignar un color diferente y aleatorio a cada uno de los segmentos. Para ello dirigase a propiedades, como en la siguiente imagen
+
+#+CAPTION: Propiedades de la imagen
+#+NAME: fig:moringa_modificado
+#+ATTR_HTML: :width 400px
+[[/home/juanse/Documents/ext_data/Proyectos/IGAC_Diplomado/PDI_Fund_y_Appl/OBIA/Imagenes_Guia/PropiedadesImagen.png]]
+
+A continuación seleccione el panel de simbología, categorize por "Valores en paleta/unicos", y seleccione una paleta de color aleatoria, luego presione los botones de clasificar, aplicar y por ultimo aceptar. Obtendrá una imagen como la de la derecha.
+
+#+CAPTION: Asignación de colores aleatorios
+#+NAME: fig:moringa_modificado
+#+ATTR_HTML: :width 400px
+[[/home/juanse/Documents/ext_data/Proyectos/IGAC_Diplomado/PDI_Fund_y_Appl/OBIA/Imagenes_Guia/ColoresAleatorios.png]]
+
+
+
+
+
+***  Vectorización y Extracción de características
+
+Una vez, se tienen los resultados de una segmentación es posible continuar el analisis utilizando herramientas vectoriales, para ello lo primero es comvertir la segmentación en una capa vectorial, como se puede ver en la siguiente imagen. Siguiendo los siguientes pasos:
+
+1. Abrir la herramienta de poligonizar (marcado en verde)
+2. Seleccione la imagen a convertir (marcado en verde)
+3. Introduzca una ruta de salida para la imagen  (marcado en verde)
+
+#+CAPTION: Vectorizar
+#+NAME: fig:moringa_modificado
+#+ATTR_HTML: :width 400px
+[[/home/juanse/Documents/ext_data/Proyectos/IGAC_Diplomado/PDI_Fund_y_Appl/OBIA/Imagenes_Guia/Vectorizar.png]]
+
+Luego, procedemos a buscar los tanques pretoleros que se pretenden extraer, como se visualizan en la imagen a continuación.
+
+#+CAPTION: Objetivos de la vectorización
+#+NAME: fig:moringa_modificado
+#+ATTR_HTML: :width 400px
+[[/home/juanse/Documents/ext_data/Proyectos/IGAC_Diplomado/PDI_Fund_y_Appl/OBIA/Imagenes_Guia/TanquesPetroleros.png]]
+
+Seguidamente se le da estilo a la capa vectorial siguiendo el mismo procedimiento que antes, se selecciona los segmentos que se superponen con los tanques y se le da click derecho sobre la capa, exportar y se selecciona la opción *"Guardar solamente objectos espaciales seleccionados"*
+
+#+CAPTION: Selección y exportacion de segmentos
+#+NAME: fig:moringa_modificado
+#+ATTR_HTML: :width 400px
+[[/home/juanse/Documents/ext_data/Proyectos/IGAC_Diplomado/PDI_Fund_y_Appl/OBIA/Imagenes_Guia/SeleccionExportacion.png]]
+
+Finalmente se superponen los objetos extraidos con la imagen para validar que tan correctos son:
+
+#+Caption: Vectorización Segmentación
+#+NAME: fig:moringa_modificado
+#+ATTR_HTML: :width 400px
+[[/home/juanse/Documents/ext_data/Proyectos/IGAC_Diplomado/PDI_Fund_y_Appl/OBIA/Imagenes_Guia/ResultadoExtraccion.png]]
+
+
+
+
+
+
+
+**   Automatización con python
+
+
+Como bonus podemos automatizar la busqueda de parametros usando una estrategía de "fuerza bruta", a través del siguiente ejemplo.
+
+Para replicarlo necesitas una instalación de python con acceso a Orfeo Toolbox, puedes encontrar mas información en el siguiente [[https://www.orfeo-toolbox.org/CookBook/Installation.html#python-bindings][enlase]]
+
+#+begin_src python :exports code
+#!/usr/bin/env python3
+
+import os
+from tqdm import tqdm
+import otbApplication
+
+
+os.chdir("/home/juanse/Documents/ext_data/tmp/Segmentacion")
+
+
+def variacion_meanshift(spatial_radius: int):
+    """
+    varia los parametros del meanshift
+    """
+    app = otbApplication.Registry.CreateApplication("Segmentation")
+    app.SetParameterString("in",
+        "/home/juanse/Documents/ext_data/tmp/Segmentacion/Copia de Sobel.tif")
+    app.SetParameterString("mode",
+                           "raster")
+    app.SetParameterString("filter.meanshift.spatialr",
+                           f"{spatial_radius}")
+    app.SetParameterString("mode.raster.out",
+        f"/home/juanse/Documents/ext_data/"+
+        "tmp/Segmentacion/variacion_parametros/SegmentationRaster_{spatial_radius}.tif")
+    app.SetParameterOutputImagePixelType("mode.raster.out", 3)
+    app.SetParameterString("filter","meanshift")
+    app.Execute()
+    # app.ExecuteAndWriteOutput()
+
+    return app
+
+
+def main():
+
+    lista_valores = list(range(5, 100, 5))
+
+    for i in tqdm(lista_valores):
+        variacion_meanshift(i)
+
+
+if __name__ == "__main__":
+    main()
+
+
+#+end_src
+** Tarea
+
+Replique el ejercicio de comparación de segmentaciones, basado en la siguiente [[https://www.orfeo-toolbox.org/CookBook/Applications/app_HooverCompareSegmentation.html][guía]]

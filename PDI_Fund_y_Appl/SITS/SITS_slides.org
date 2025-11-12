@@ -1,0 +1,217 @@
+#+title: Series de Tiempo de Imágenes de Satélite (SITS)
+#+SUBTITLE: Una introducción
+#+AUTHOR:  Juan Sebastian Vinasco Salinas
+
+#+EXPORT_FILE_NAME: export/sits_intro_slides_igac.pdf
+
+#+LANGUAGE:  es
+#+OPTIONS:   H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+
+#+LATEX_CLASS: beamer
+#+LATEX_CLASS_OPTIONS: [presentation,8pt, aspectratio=169, compress, xcolor=svgnames]
+#+BEAMER_THEME: Cesbio
+#+LATEX_HEADER: \setbeamertemplate{navigation symbols}{}
+#+LATEX_HEADER: \usepackage[english]{babel}
+#+LATEX_HEADER: \usepackage[utf8]{inputenc}
+#+LATEX_HEADER: \usepackage{minted}
+#+LATEX_HEADER: \usepackage{tikz}
+#+LATEX_HEADER: \usemintedstyle{emacs}
+#+LATEX_HEADER: \usepackage{color}
+#+LATEX_HEADER: \usepackage{animate}
+#+LATEX_HEADER: \usepackage{subcaption}
+#+LATEX_HEADER: \newcommand{\shorttitle}{Bogotá - Colombia}
+#+LATEX_HEADER: \newcommand{\shortauthor}{Vinasco-Salinas}
+#+LATEX_HEADER: \institute{Instituto Geográfico Agustín Codazzi, Dirección de Investigación y Prospectiva,  Bogotá, COLOMBIA}
+#+LATEX_HEADER: %\usepackage[type={CC}, modifier={by-sa}, version={4.0},]{doclicense}
+#+LATEX_HEADER: \titlegraphic{\includegraphics[width=0.2\textwidth]{Artwork/logo-igac-colorhorizontal.png}}
+
+#+LATEX_HEADER: \usepackage[usenames,dvipsnames]{xcolor}
+#+LATEX_HEADER: \usepackage{tikz} \usetikzlibrary{calc, arrows.meta, intersections, patterns, positioning, shapes.misc, fadings, through,decorations.pathreplacing}
+#+LATEX_HEADER: \definecolor{ColorOne}{named}{MidnightBlue}
+#+LATEX_HEADER: \definecolor{ColorTwo}{named}{ForestGreen}
+#+LATEX_HEADER: \definecolor{ColorThree}{named}{Turquoise}
+
+#+LATEX_HEADER: \tikzstyle{descript} = [text = black,align=center, minimum height=1.8cm, align=center, outer sep=0pt,font = \footnotesize]
+#+LATEX_HEADER: \tikzstyle{activity} =[align=center,outer sep=1pt]
+
+#+STARTUP: hideblocks
+#+STARTUP: beamer
+
+#+BIBLIOGRAPHY: /home/juanse/Documents/Proyectos/IGAC_Diplomado/referencias/referecias_diplomado.bib
+#+CITE_EXPORT: biblatex backend=bibtex,style=ieee
+
+
+* Introducción
+
+*** ¿Que es un SITS?
+
+"Una serie temporal de imágenes satelitales (SITS) es un conjunto de imágenes satelitales tomadas de la misma escena en diferentes momentos. Una SITS utiliza diferentes fuentes satelitales para obtener una serie de datos más amplia con un intervalo de tiempo corto entre dos imágenes. En este caso, es fundamental observar la resolución espacial y las restricciones de registro."[fn:3]
+
+*** ¿Que es un SITS?
+
+"Las observaciones satelitales ofrecen oportunidades para comprender cómo está cambiando la Tierra, determinar las causas de estos cambios y predecir los cambios futuros. Los datos obtenidos por teledetección, combinados con la información de los modelos de ecosistemas, ofrecen la oportunidad de predecir y comprender el comportamiento del ecosistema terrestre. Los sensores con alta resolución espacial y temporal facilitan la observación de estructuras espacio-temporales precisas en escenas dinámicas. Los componentes temporales integrados con las dimensiones espectrales y espaciales permiten identificar patrones complejos relacionados con aplicaciones conectadas con la monitorización medioambiental y el análisis de la dinámica de la cobertura del suelo."[fn:2]
+*** Descripción general de las SITS
+
+Referencia de la imagen [fn:1]
+
+#+CAPTION: ¿Qué es un SITS?
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.8\textwidth
+[[./Artwork/time_series_general_view.png]]
+
+
+* Parte 1: Pre-procesamientos necesarios para SITS
+
+*** Corrección atmosferica - Enmascaramiento de nubes y sombras
+
+#+CAPTION: Niveles de productos satelitales
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.8\textwidth
+[[./Artwork/Produits.png]]
+
+
+*** Corrección atmosferica - Enmascaramiento de nubes y sombras
+
+#+CAPTION: Corrección Atmosferica
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.5\textwidth
+[[./Artwork/atmospheric_correction.jpg]]
+
+
+
+*** Corrección atmosferica - Enmascaramiento de nubes y sombras
+
+#+CAPTION: Corrección Atmosferica
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.5\textwidth
+[[./Artwork/Detection_de_nuages-300x274.jpg]]
+
+
+
+*** Co-registro espacial
+
+
+#+CAPTION: Corrección Atmosferica
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.5\textwidth
+[[./Artwork/residual_registration-figure.png]]
+
+Ejemplo [fn:4]
+
+*** Ajuste radiométrico
+
+#+CAPTION: Corrección Atmosferica
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.5\textwidth
+[[./Artwork/sr_images.png]]
+
+*** Ejemplo de un SITS correcta :noexport:
+
+#+CAPTION: Vamos a practicar!!!
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.8\textwidth
+[[/home/juanse/Videos/animNoorSolar.gif]]
+
+
+
+* Parte 2: Aplicaciones de las SITS
+
+*** Seguimiento del impacto de inundaciones
+#+CAPTION: Corrección Atmosferica
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.5\textwidth
+[[./Artwork/animS2lr-161.png]]
+
+
+*** Seguimiento del impacto de inundaciones
+#+CAPTION: Corrección Atmosferica
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.5\textwidth
+[[./Artwork/animS2lr-84.png]]
+
+
+
+*** Seguimiento del impacto de la deforestacion
+
+
+#+CAPTION: TropiSCO: Seguimiento de la deforestacion
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.5\textwidth
+[[./Artwork/SARshadow.png]]
+
+*** Seguimiento del impacto de la deforestacion
+
+
+#+CAPTION: Seguimiento de la deforestacion en Surinam
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.5\textwidth
+[[./Artwork/Deforestation_Surinam.png]]
+
+*** Seguimiento del impacto de la deforestacion
+
+
+#+CAPTION: TropiSCO: Seguimiento de la deforestacion
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.5\textwidth
+[[./Artwork/deforestation_vietnam_2-2048x1215.png]]
+
+
+* Parte 3: Ejemplo Evolucion de un glaciar en bolivia
+
+*** Ejemplo Sitio SEDUARDO
+
+#+CAPTION: Vamos a practicar!!!
+#+NAME:   fig:gato
+#+ATTR_LATEX: :width 0.5\textwidth
+[[./Artwork/VENUS-XS_20240712-135840-000_L2A_SEDUARDO_C_V3-1_QKL_ALL.jpg]]
+
+
+
+
+
+
+* Referencias
+:PROPERTIES:
+:UNNUMBERED: 1
+:END:
+
+*** Referencias
+
+#+print_bibliography: :heading none
+
+#+begin_export latex
+\newpage
+#+end_export
+
+
+* NoExport :noexport:
+** Introducción
+
+**** Introducción
+
+Orfeo Toolbox [cite:@grizonnet2017orfeo]
+
+** Algoritmos Clasicos
+
+**** remuestreo temporal
+
+
+** Algoritmos Avanzados
+
+**** Modelos probabilisticos
+
+*** Seguimiento del impacto de inundaciones :noexport:
+
+#+begin_export latex
+\animategraphics[loop, autoplay, controls, width=\textwidth]{10}{[[./Artwork/-animS2lr-}{0}{16}
+#+end_export
+
+* Footnotes
+[fn:4]
+https://www.cesbio.cnrs.fr/multitemp/wp-content/uploads/sites/11/2018/04/animNoorSolar.gif
+
+[fn:3] Tomado de: https://en.wikipedia.org/wiki/Satellite_Image_Time_Series
+[fn:2] Tomado de: https://en.wikipedia.org/wiki/Satellite_Image_Time_Series
+
+[fn:1] https://e-sensing.github.io/sitsbook/
