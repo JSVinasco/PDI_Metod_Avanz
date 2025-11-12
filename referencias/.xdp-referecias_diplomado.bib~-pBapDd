@@ -1,0 +1,31 @@
+@Online{Nine-advanced-training-course-on-land-remote-sensing,
+  author          = {Pierre Defourny },
+  title           = {9th ESA Advanced Training Course on Land Remote Sensing
+                  2019 (focus on Agriculture):Accuracy assessment - Day 3.2},
+  date            = {6-20 September 2019},
+  url             =
+                  {https://www.youtube.com/watch?v=vKrcNDUspws&list=PLvT7fd9OiI9Xn08gGpjr-KXhNBL6jnVpv&index=12},
+}
+
+@article{brosinsky2022beyond,
+  title           = {Beyond the Visible--Introduction to Hyperspectral Remote
+                  Sensing. Offline document accompanying the MOOC},
+  author          = {Brosinsky, Arlena and Wilczok, Charlotte and F{\"o}rster,
+                  S},
+  year            = 2022,
+  publisher       = {GFZ Data Services}
+}
+
+@article{grizonnet2017orfeo,
+  title           = {Orfeo ToolBox: open source processing of remote sensing
+                  images},
+  author          = {Grizonnet, Manuel and Michel, Julien and Poughon, Victor
+                  and Inglada, Jordi and Savinaud, Micka{\"e}l and Cresson,
+                  R{\'e}mi},
+  journal         = {Open Geospatial Data, Software and Standards},
+  volume          = 2,
+  number          = 1,
+  pages           = 15,
+  year            = 2017,
+  publisher       = {Springer}
+}

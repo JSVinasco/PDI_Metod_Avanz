@@ -1,0 +1,21 @@
+#+TITLE: README
+#+AUTHOR: Juan Sebastian Vinasco Salinas
+#+EMAIL: juan.vinasco@igac.gov.co
+#+BIBLIOGRAPHY: /home/juanse/Documents/Proyectos/IGAC_Diplomado/referencias/referecias_diplomado.bib
+#+EXPORT_FILE_NAME: /home/juanse/Documents/Proyectos/IGAC_Diplomado/Resumen.pdf
+#+CITE_EXPORT: biblatex backend=bibtex,style=ieee
+
+
+
+* Resumen
+
+Este repositorio guarda la información que dictara Juan Sebastián Vinasco Salinas, en el marco de la propuesta de diplomados de la DIP para el año 2025
+
+
+* Referencias
+
+#+print_bibliography: :heading none
+
+#+begin_export latex
+\newpage
+#+end_export

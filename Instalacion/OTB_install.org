@@ -1,0 +1,63 @@
+#+TITLE: Guía de instalación Orfeo Toolbox y OTBTF
+#+AUTHOR: Juan Sebastián Vinasco Salinas
+#+EMAIL: juan.vinasco@igac.gov.co
+
+
+* Guía de instalación de OTB y OTBTF
+
+Orfeo Toolbox conocido también por sus siglas OTB, es un software de procesamiento digital de imagenes de satelite, enfocado en procesar imagenes de muy alta resolución.
+
+OTBTF es una extensión de orfeo toolbox que permite la conexion entre OTB y Tensor Flow (en adelante TF), extendiendo las capacidades intrinsecas de OTB a los flujos de trabajo que implican el uso de algoritmos de aprendizaje profundo.
+
+** Instalación de OTB
+*** Prerequisitos
+
+Ninguno
+
+***  Procedimiento de instalación
+
+1. Dirigase a la pagina de descargas oficial de Orfeo Toolbox [[https://www.orfeo-toolbox.org/download/][aquí]]
+2. Seleccione el sistema operativo y descargue el archivo respectivo
+3. Luego, proceda a descomprimir el archivo .zip en el caso de windows
+4. Abra una terminal de Powershell en la carpeta donde descompromio el archivo
+5. Habilite otb mediante la ejecución del script /otbenv.ps1/
+
+**  Instalalción de OTBTF
+
+*** Prerequisitos
+
+Para comenzar necesitamos instalar docker y docker compose, estos programas permiten la descarga, ejecución y administrador de contenedores [fn:1]
+
+Para ello sigue los siguientes pasos:
+
+1. Dirigase a la siguiente dirección web [[https://www.docker.com/products/docker-desktop/][docker-desktop]]
+2. Seleccione el sistema operativo, usualmente es windows AMD64
+3. Instale el archivo descargado de extensión.exe
+4. Durante la instalación seleccione la opción de habilitar *wsl2*
+5. Una vez finalice la instalación *reinicie* su computadora
+6. Verifique su instalación, lanzando una terminal y ejecutando los siguiente:
+
+   #+begin_src bat
+        docker --version
+        docker-compose --version
+   #+end_src
+***  Procedimiento de instalación
+
+Seguiremos el procedimiento estandar de la documentación [fn:2]
+
+1. Abra una terminal de powershell
+2. ejecute el siguiente comando para una instalación de CPU pura
+
+   #+begin_src bash
+        docker pull mdl4eo/otbtf:latest
+   #+end_src
+3. O el siguiente comando si dispone de una GPU
+
+   #+begin_src bash
+        docker pull mdl4eo/otbtf:latest-gpu
+   #+end_src
+
+* Footnotes
+[fn:2] https://otbtf.readthedocs.io/en/latest/docker_use.html
+
+[fn:1] La guía de instalación se basa en la siguiente [[https://medium.com/@piyushkashyap045/comprehensive-guide-installing-docker-and-docker-compose-on-windows-linux-and-macos-a022cf82ac0b][guía]]

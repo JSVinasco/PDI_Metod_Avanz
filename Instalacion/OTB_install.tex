@@ -1,0 +1,95 @@
+% Created 2025-09-12 vie 08:34
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{Juan Sebastián Vinasco Salinas}
+\date{\today}
+\title{Guía de instalación Orfeo Toolbox y OTBTF}
+\hypersetup{
+ pdfauthor={Juan Sebastián Vinasco Salinas},
+ pdftitle={Guía de instalación Orfeo Toolbox y OTBTF},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 30.2 (Org mode 9.7.19)}, 
+ pdflang={English}}
+\usepackage{biblatex}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+\section{Guía de instalación de OTB y OTBTF}
+\label{sec:org9bb0def}
+
+Orfeo Toolbox conocido también por sus siglas OTB, es un software de procesamiento digital de imagenes de satelite, enfocado en procesar imagenes de muy alta resolución.
+
+OTBTF es una extensión de orfeo toolbox que permite la conexion entre OTB y Tensor Flow (en adelante TF), extendiendo las capacidades intrinsecas de OTB a los flujos de trabajo que implican el uso de algoritmos de aprendizaje profundo.
+\subsection{Instalación de OTB}
+\label{sec:org33fbd98}
+\subsubsection{Prerequisitos}
+\label{sec:org635b83c}
+
+Ninguno
+\subsubsection{Procedimiento de instalación}
+\label{sec:orgf62a239}
+
+\begin{enumerate}
+\item Dirigase a la pagina de descargas oficial de Orfeo Toolbox \href{https://www.orfeo-toolbox.org/download/}{aquí}
+\item Seleccione el sistema operativo y descargue el archivo respectivo
+\item Luego, proceda a descomprimir el archivo .zip en el caso de windows
+\item Abra una terminal de Powershell en la carpeta donde descompromio el archivo
+\item Habilite otb mediante la ejecución del script \emph{otbenv.ps1}
+\end{enumerate}
+\subsection{Instalalción de OTBTF}
+\label{sec:orgd379b17}
+
+\subsubsection{Prerequisitos}
+\label{sec:orge4c4429}
+
+Para comenzar necesitamos instalar docker y docker compose, estos programas permiten la descarga, ejecución y administrador de contenedores \footnote{La guía de instalación se basa en la siguiente \href{https://medium.com/@piyushkashyap045/comprehensive-guide-installing-docker-and-docker-compose-on-windows-linux-and-macos-a022cf82ac0b}{guía}}
+
+Para ello sigue los siguientes pasos:
+
+\begin{enumerate}
+\item Dirigase a la siguiente dirección web \href{https://www.docker.com/products/docker-desktop/}{docker-desktop}
+\item Seleccione el sistema operativo, usualmente es windows AMD64
+\item Instale el archivo descargado de extensión.exe
+\item Durante la instalación seleccione la opción de habilitar \textbf{wsl2}
+\item Una vez finalice la instalación \textbf{reinicie} su computadora
+\item Verifique su instalación, lanzando una terminal y ejecutando los siguiente:
+
+\begin{verbatim}
+        docker --version
+        docker-compose --version
+\end{verbatim}
+\end{enumerate}
+\subsubsection{Procedimiento de instalación}
+\label{sec:org401ebce}
+
+Seguiremos el procedimiento estandar de la documentación \footnote{\url{https://otbtf.readthedocs.io/en/latest/docker\_use.html}}
+
+\begin{enumerate}
+\item Abra una terminal de powershell
+\item ejecute el siguiente comando para una instalación de CPU pura
+
+\begin{verbatim}
+        docker pull mdl4eo/otbtf:latest
+\end{verbatim}
+\item O el siguiente comando si dispone de una GPU
+
+\begin{verbatim}
+        docker pull mdl4eo/otbtf:latest-gpu
+\end{verbatim}
+\end{enumerate}
+\end{document}
